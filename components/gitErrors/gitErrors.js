@@ -1,6 +1,6 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ffungit-components');
+const components = require('fungit-components');
 
 components.register('gitErrors', (args) => new GitErrorsViewModel(args.server, args.repoPath));
 
@@ -39,9 +39,9 @@ class GitErrorViewModel {
     this.stdout = data.stdout;
     this.stderr = data.stderr;
     this.showEnableBugtracking = ko.observable(false);
-    this.bugReportWasSent = ffungit.config.bugtracking;
+    this.bugReportWasSent = fungit.config.bugtracking;
 
-    if (!data.shouldSkipReport && !ffungit.config.bugtracking) {
+    if (!data.shouldSkipReport && !fungit.config.bugtracking) {
       this.server.getPromise('/userconfig').then((userConfig) => {
         self.showEnableBugtracking(!userConfig.bugtracking);
       });

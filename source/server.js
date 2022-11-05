@@ -13,12 +13,12 @@ const fs = require('fs').promises;
 const signals = require('signals');
 const os = require('os');
 const cache = require('./utils/cache');
-const ffungitPlugin = require('./ffungit-plugin');
+const fungitPlugin = require('./fungit-plugin');
 const serveStatic = require('serve-static');
 
 process.on('uncaughtException', (err) => {
   logger.error(err.stack ? err.stack.toString() : err.toString());
-  bugtracker.notify(err, 'ffungit-launcher');
+  bugtracker.notify(err, 'fungit-launcher');
   process.exit();
 });
 
@@ -82,7 +82,7 @@ if (config.allowedIPs) {
         .status(403)
         .send(
           '<h3>This host is not authorized to connect</h3>' +
-            '<p>You are trying to connect to an ffungit instance from an unauthorized host.</p>'
+            '<p>You are trying to connect to an fungit instance from an unauthorized host.</p>'
         );
       logger.warn(`Host trying but not authorized to connect: ${ip}`);
     }
@@ -105,7 +105,7 @@ if (config.autoShutdownTimeout) {
     if (autoShutdownTimeout) clearTimeout(autoShutdownTimeout);
     autoShutdownTimeout = setTimeout(() => {
       logger.info(
-        `Shutting down ffungit due to inactivity. (autoShutdownTimeout is set to ${config.autoShutdownTimeout} ms`
+        `Shutting down fungit due to inactivity. (autoShutdownTimeout is set to ${config.autoShutdownTimeout} ms`
       );
       process.exit(0);
     }, config.autoShutdownTimeout);
@@ -131,7 +131,7 @@ if (config.authentication) {
       store: new MemoryStore({
         checkPeriod: 86400000, // prune expired entries every 24h
       }),
-      secret: 'ffungit',
+      secret: 'fungit',
       resave: true,
       saveUninitialized: true,
     })
@@ -187,7 +187,7 @@ const indexHtmlCacheKey = cache.registerFunc(() => {
           return plugin.compile();
         })
       ).then((results) => {
-        data = data.replace('<!-- ffungit-plugins-placeholder -->', results.join('\n\n'));
+        data = data.replace('<!-- fungit-plugins-placeholder -->', results.join('\n\n'));
         data = data.replace(/__ROOT_PATH__/g, config.rootPath);
 
         return data;
@@ -248,10 +248,10 @@ const loadPlugins = (plugins, pluginBasePath) => {
       pluginDirs.map((pluginDir) => {
         const pluginPath = path.join(pluginBasePath, pluginDir);
         return fs
-          .access(path.join(pluginPath, 'ffungit-plugin.json'))
+          .access(path.join(pluginPath, 'fungit-plugin.json'))
           .then(() => {
             logger.info('Loading plugin: ' + pluginPath);
-            const plugin = new ffungitPlugin({
+            const plugin = new fungitPlugin({
               dir: pluginDir,
               httpBasePath: 'plugins/' + pluginDir,
               path: pluginPath,
@@ -265,7 +265,7 @@ const loadPlugins = (plugins, pluginBasePath) => {
             logger.info('Plugin loaded: ' + pluginDir);
           })
           .catch(() => {
-            // Skip direcories that don't contain an "ffungit-plugin.json".
+            // Skip direcories that don't contain an "fungit-plugin.json".
           });
       })
     );
@@ -287,42 +287,42 @@ const pluginsCacheKey = cache.registerFunc(() => {
 
 app.get('/serverdata.js', (req, res) => {
   const text =
-    `ffungit.config = ${JSON.stringify(config)};\n` +
-    `ffungit.userHash = "${sysinfo.getUserHash()}";\n` +
-    `ffungit.version = "${config.ffungitDevVersion}";\n` +
-    `ffungit.platform = "${os.platform()}";\n` +
-    `ffungit.pluginApiVersion = "${require('../package.json').ffungitPluginApiVersion}";\n`;
+    `fungit.config = ${JSON.stringify(config)};\n` +
+    `fungit.userHash = "${sysinfo.getUserHash()}";\n` +
+    `fungit.version = "${config.fungitDevVersion}";\n` +
+    `fungit.platform = "${os.platform()}";\n` +
+    `fungit.pluginApiVersion = "${require('../package.json').fungitPluginApiVersion}";\n`;
   res.set('Content-Type', 'application/javascript');
   res.send(text);
 });
 
 app.get('/api/latestversion', (req, res) => {
   sysinfo
-    .getffungitLatestVersion()
+    .getfungitLatestVersion()
     .then((latestVersion) => {
-      if (!semver.valid(config.ffungitDevVersion)) {
+      if (!semver.valid(config.fungitDevVersion)) {
         res.json({
           latestVersion: latestVersion,
-          currentVersion: config.ffungitDevVersion,
+          currentVersion: config.fungitDevVersion,
           outdated: false,
         });
       } else {
         // We only want to show the "new version" banner if the major/minor version was bumped
         const latestSansPatch = semver(latestVersion);
         latestSansPatch.patch = 0;
-        const currentSansPatch = semver(config.ffungitDevVersion);
+        const currentSansPatch = semver(config.fungitDevVersion);
         currentSansPatch.patch = 0;
         res.json({
           latestVersion: latestVersion,
-          currentVersion: config.ffungitDevVersion,
+          currentVersion: config.fungitDevVersion,
           outdated: semver.gt(latestSansPatch, currentSansPatch),
         });
       }
     })
     .catch((err) => {
       res.json({
-        latestVersion: config.ffungitDevVersion,
-        currentVersion: config.ffungitDevVersion,
+        latestVersion: config.fungitDevVersion,
+        currentVersion: config.fungitDevVersion,
         outdated: false,
       });
     });
@@ -334,7 +334,7 @@ app.get('/api/gitversion', (req, res) => {
   res.json(sysinfo.getGitVersionInfo());
 });
 
-const userConfigPath = path.join(config.homedir, '.ffungitrc');
+const userConfigPath = path.join(config.homedir, '.fungitrc');
 const readUserConfig = () => {
   return fs
     .access(userConfigPath)
@@ -345,7 +345,7 @@ const readUserConfig = () => {
           return JSON.parse(content);
         })
         .catch((err) => {
-          logger.error(`Stop at reading ~/.ffungitrc because ${err}`);
+          logger.error(`Stop at reading ~/.fungitrc because ${err}`);
           process.exit(0);
         });
     })
@@ -408,15 +408,15 @@ app.get('/api/fs/listDirectories', ensureAuthenticated, (req, res) => {
 
 // Error handling
 app.use((err, req, res, next) => {
-  bugtracker.notify(err, 'ffungit-node');
+  bugtracker.notify(err, 'fungit-node');
   logger.error(err.stack);
   res.status(500).send({ error: err.message, errorType: err.name, stack: err.stack });
 });
 
 exports.started = new signals.Signal();
 
-server.listen({ port: config.port, host: config.ffungitBindIp }, () => {
+server.listen({ port: config.port, host: config.fungitBindIp }, () => {
   logger.info('Listening on port ' + config.port);
-  console.log('## ffungit started ##'); // Consumed by bin/ffungit to figure out when the app is started
+  console.log('## fungit started ##'); // Consumed by bin/fungit to figure out when the app is started
   exports.started.dispatch();
 });

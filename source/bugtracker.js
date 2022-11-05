@@ -15,7 +15,7 @@ class BugTracker {
     this.subsystem = subsystem;
     this.appVersion = 'unknown';
     this.userHash = sysinfo.getUserHash();
-    this.appVersion = config.ffungitDevVersion;
+    this.appVersion = config.fungitDevVersion;
     logger.info(`BugTracker set version: ${this.appVersion}`);
   }
   notify(exception, clientName) {

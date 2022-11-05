@@ -11,7 +11,7 @@ describe('[BRANCHES]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[0]);
+    return environment.openfungit(testRepoPaths[0]);
   });
 
   it('add a commit', async () => {
@@ -225,7 +225,7 @@ describe('[BRANCHES]', () => {
   });
 
   it('Auto checkout on branch creation.', async () => {
-    await environment.page.evaluate(() => (ffungit.config.autoCheckoutOnBranchCreate = true));
+    await environment.page.evaluate(() => (fungit.config.autoCheckoutOnBranchCreate = true));
     await environment.createBranch('autoCheckout');
     await environment.waitForElementVisible('[data-ta-name="autoCheckout"].current');
   });

@@ -11,7 +11,7 @@ const { encodePath } = require('../source/address-parser');
 
 const BugTracker = require('../source/bugtracker');
 const bugtracker = new BugTracker('launcher');
-// Fastest way to find out if a port is used or not/i.e. if ffungit is running
+// Fastest way to find out if a port is used or not/i.e. if fungit is running
 const net = require('net');
 const server = net.createServer();
 const cleanExit = () => process.exit();
@@ -21,11 +21,11 @@ process.on('SIGTERM', cleanExit); // catch kill
 process.on('uncaughtException', (err) => {
   console.error(err.stack.toString());
 
-  bugtracker.notify(err, 'ffungit-launcher');
+  bugtracker.notify(err, 'fungit-launcher');
   cleanExit();
 });
 
-const openffungitBrowser = (pathToNavigateTo) => {
+const openfungitBrowser = (pathToNavigateTo) => {
   console.log(`Navigate to ${pathToNavigateTo}`);
   return open(pathToNavigateTo).catch((err) =>
     console.log(`failed to navigate to ${pathToNavigateTo}`, err)
@@ -49,11 +49,11 @@ const navigate = () => {
         return;
       }
       if (config.launchBrowser) {
-        openffungitBrowser(url);
+        openfungitBrowser(url);
       }
     });
   } else if (config.launchBrowser) {
-    openffungitBrowser(url);
+    openfungitBrowser(url);
   }
 };
 
@@ -65,11 +65,11 @@ const launch = () => {
   );
 
   child.on('exit', (res) => {
-    console.log('Stopped keeping ffungit alive');
+    console.log('Stopped keeping fungit alive');
   });
 
   const startupListener = (data) => {
-    if (data.toString().indexOf('## ffungit started ##') >= 0) {
+    if (data.toString().indexOf('## fungit started ##') >= 0) {
       child.removeListener('stdout', startupListener);
       child.stdout.on('data', (data) => console.log(data.toString().trim()));
       const launchTime = Date.now() - startLaunchTime;
@@ -83,12 +83,12 @@ const launch = () => {
   child.stderr.on('data', (data) => console.log(`stderr: ${data.toString().trim()}`));
 };
 
-server.listen({ port: config.port, host: config.ffungitBindIp }, (err) => {
+server.listen({ port: config.port, host: config.fungitBindIp }, (err) => {
   server.close(launch);
 });
 server.on('error', (e) => {
   if (e.code == 'EADDRINUSE') {
-    console.log('ffungit server already running');
+    console.log('fungit server already running');
     navigate();
   } else {
     console.error('Failed to run server: ', e);

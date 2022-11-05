@@ -6,31 +6,31 @@
     <link rel="stylesheet" type="text/css" href="__ROOT_PATH__/css/styles.css" />
     <link rel="shortcut icon" href="__ROOT_PATH__/favicon.ico" />
     <link rel="shortcut icon" href="/images/icon.png" />
-    <title>ffungit</title>
+    <title>fungit</title>
   </head>
   <body>
     <!-- ko component: content --><!-- /ko -->
 
     <script type="text/javascript">
-      ffungit = {};
+      fungit = {};
     </script>
     <script type="text/javascript" src="__ROOT_PATH__/serverdata.js"></script>
     <script type="text/javascript" src="__ROOT_PATH__/js/raven.min.js"></script>
     <script type="text/javascript">
-      console.log('App version: ' + ffungit.version);
-      if (ffungit.config.bugtracking) {
+      console.log('App version: ' + fungit.version);
+      if (fungit.config.bugtracking) {
         console.log('Initing raven');
 
         try {
           Raven.config('https://58f16d6f010d4c77900bb1de9c02185f@app.getsentry.com/12434', {
             logger: 'root',
             tags: {
-              version: ffungit.version,
+              version: fungit.version,
               subsystem: 'ui',
-              deployment: ffungit.config.desktopMode ? 'desktop' : 'web',
+              deployment: fungit.config.desktopMode ? 'desktop' : 'web',
             },
           }).install();
-          Raven.setUser({ id: ffungit.userHash });
+          Raven.setUser({ id: fungit.userHash });
         } catch (e) {
           console.warn('Failed to initialize Raven.', e);
           Raven = {
@@ -42,12 +42,12 @@
       }
     </script>
     <script type="text/javascript" src="__ROOT_PATH__/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="__ROOT_PATH__/js/ffungit.js"></script>
+    <script type="text/javascript" src="__ROOT_PATH__/js/fungit.js"></script>
 
-    <!-- ffungit-plugins-placeholder -->
+    <!-- fungit-plugins-placeholder -->
 
     <script type="text/javascript">
-      require('ffungit-main').start();
+      require('fungit-main').start();
     </script>
   </body>
 </html>

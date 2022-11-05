@@ -12,11 +12,11 @@ var { app, dialog, shell, BrowserWindow, Menu } = require('electron');
 
 process.on('uncaughtException', function (err) {
   console.error(err.stack.toString());
-  bugtracker.notify(err, 'ffungit-launcher');
+  bugtracker.notify(err, 'fungit-launcher');
   app.quit();
 });
 
-function openffungitBrowser(pathToNavigateTo) {
+function openfungitBrowser(pathToNavigateTo) {
   console.log(`Navigate to ${pathToNavigateTo}`);
   mainWindow.loadURL(pathToNavigateTo);
 }
@@ -38,16 +38,16 @@ function launch(callback) {
         return;
       }
       if (config.launchBrowser) {
-        openffungitBrowser(url);
+        openfungitBrowser(url);
       }
     });
   } else if (config.launchBrowser) {
-    openffungitBrowser(url);
+    openfungitBrowser(url);
   }
 }
 
-function checkIffungitIsRunning(callback) {
-  // Fastest way to find out if a port is used or not/i.e. if ffungit is running
+function checkIfungitIsRunning(callback) {
+  // Fastest way to find out if a port is used or not/i.e. if fungit is running
   var net = require('net');
   var server = net.createServer();
   server.on('error', function (e) {
@@ -55,7 +55,7 @@ function checkIffungitIsRunning(callback) {
       callback(true);
     }
   });
-  server.listen({ port: config.port, host: config.ffungitBindIp }, function () {
+  server.listen({ port: config.port, host: config.fungitBindIp }, function () {
     server.close(function () {
       callback(false);
     });
@@ -108,7 +108,7 @@ var menuTemplate = [
       {
         label: 'Learn More',
         click: async () => {
-          await shell.openExternal('https://github.com/FredrikNoren/ffungit');
+          await shell.openExternal('https://github.com/ungtb10d/fungit');
         },
       },
     ],
@@ -120,12 +120,12 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
-  checkIffungitIsRunning(function (ffungitRunning) {
-    if (ffungitRunning) {
+  checkIfungitIsRunning(function (fungitRunning) {
+    if (fungitRunning) {
       dialog.showMessageBoxSync({
         type: 'error',
-        title: 'ffungit',
-        message: 'ffungit instance is already running',
+        title: 'fungit',
+        message: 'fungit instance is already running',
       });
       app.quit();
     } else {

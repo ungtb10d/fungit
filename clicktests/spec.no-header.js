@@ -10,7 +10,7 @@ describe('[NO-HEADER]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', async () => {
-    await environment.openffungit(testRepoPaths[0]);
+    await environment.openfungit(testRepoPaths[0]);
     await environment.waitForElementVisible('.repository-view');
     await environment.waitForElementHidden('[data-ta-container="remote-error-popup"]');
   });

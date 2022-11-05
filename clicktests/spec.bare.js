@@ -10,7 +10,7 @@ describe('[BARE]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[0]);
+    return environment.openfungit(testRepoPaths[0]);
   });
 
   it('update branches button without branches', async () => {

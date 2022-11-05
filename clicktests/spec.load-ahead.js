@@ -12,7 +12,7 @@ describe('[LOAD-AHEAD]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[0]);
+    return environment.openfungit(testRepoPaths[0]);
   });
 
   it('Should be possible to create and commit 1', async () => {

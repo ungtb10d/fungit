@@ -1,8 +1,8 @@
-var programEvents = require('ffungit-program-events');
+var programEvents = require('fungit-program-events');
 
-var rootPath = (ffungit.config && ffungit.config.rootPath) || '';
+var rootPath = (fungit.config && fungit.config.rootPath) || '';
 var nprogress;
-if (ffungit.config.isDisableProgressBar) {
+if (fungit.config.isDisableProgressBar) {
   nprogress = {
     start: () => {},
     done: () => {},

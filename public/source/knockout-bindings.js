@@ -48,7 +48,7 @@ ko.bindingHandlers.dragStart = {
   init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
     var value = valueAccessor();
     element.addEventListener('dragstart', function (e) {
-      e.dataTransfer.setData('Text', 'ffungit');
+      e.dataTransfer.setData('Text', 'fungit');
       currentlyDraggingViewModel = viewModel;
       var valueUnwrapped = ko.utils.unwrapObservable(value);
       valueUnwrapped.call(viewModel, true);

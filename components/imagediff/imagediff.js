@@ -1,7 +1,7 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const { encodePath } = require('ffungit-address-parser');
+const components = require('fungit-components');
+const { encodePath } = require('fungit-address-parser');
 
 components.register('imagediff', (args) => new ImageDiffViewModel(args));
 
@@ -18,7 +18,7 @@ class ImageDiffViewModel {
       if (this.isRemoved()) return 'removed';
       return 'changed';
     });
-    const gitDiffURL = `${ffungit.config.rootPath}/api/diff/image?path=${encodePath(
+    const gitDiffURL = `${fungit.config.rootPath}/api/diff/image?path=${encodePath(
       this.repoPath()
     )}`;
     this.oldImageSrc =

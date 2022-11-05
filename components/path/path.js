@@ -1,11 +1,11 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const addressParser = require('ffungit-address-parser');
-const navigation = require('ffungit-navigation');
-const programEvents = require('ffungit-program-events');
-const { encodePath } = require('ffungit-address-parser');
-const storage = require('ffungit-storage');
+const components = require('fungit-components');
+const addressParser = require('fungit-address-parser');
+const navigation = require('fungit-navigation');
+const programEvents = require('fungit-program-events');
+const { encodePath } = require('fungit-address-parser');
+const storage = require('fungit-storage');
 const { ComponentRoot } = require('../ComponentRoot');
 const showCreateRepoKey = 'isShowCreateRepo';
 
@@ -17,7 +17,7 @@ class SubRepositoryViewModel {
   constructor(server, path) {
     this.path = path;
     this.title = path;
-    this.link = `${ffungit.config.rootPath}/#/repository?path=${encodePath(path)}`;
+    this.link = `${fungit.config.rootPath}/#/repository?path=${encodePath(path)}`;
     this.arrowIcon = octicons['arrow-right'].toSVG({ height: 24 });
     this.remote = ko.observable('...');
 
@@ -88,7 +88,7 @@ class PathViewModel extends ComponentRoot {
     if (this.repository()) this.repository().updateAnimationFrame(deltaT);
   }
   async updateStatus() {
-    ffungit.logger.debug('path.updateStatus() triggered');
+    fungit.logger.debug('path.updateStatus() triggered');
     const status = await this.server.getPromise('/quickstatus', { path: this.repoPath() });
     try {
       if (this.isSamePayload(status)) {
@@ -115,9 +115,9 @@ class PathViewModel extends ComponentRoot {
         this.repository(null);
       }
     } catch (err) {
-      ffungit.logger.debug('path.updateStatus() errored', err);
+      fungit.logger.debug('path.updateStatus() errored', err);
     } finally {
-      ffungit.logger.debug('path.updateStatus() finished');
+      fungit.logger.debug('path.updateStatus() finished');
     }
   }
   initRepository() {

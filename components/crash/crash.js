@@ -1,5 +1,5 @@
 const ko = require('knockout');
-const components = require('ffungit-components');
+const components = require('fungit-components');
 
 components.register('crash', (err) => new CrashViewModel(err));
 

@@ -41,7 +41,7 @@ describe('[GENERIC]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open repo screen', () => {
-    return environment.openffungit(testRepoPaths[1]);
+    return environment.openfungit(testRepoPaths[1]);
   });
 
   it('Check for refresh button', () => {

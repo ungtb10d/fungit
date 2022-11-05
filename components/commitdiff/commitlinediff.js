@@ -1,6 +1,6 @@
 const ko = require('knockout');
-const components = require('ffungit-components');
-const programEvents = require('ffungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 
 class CommitLineDiff {
   constructor(args, fileLineDiff) {

@@ -1,5 +1,5 @@
 const ko = require('knockout');
-const components = require('ffungit-components');
+const components = require('fungit-components');
 const diff2html = require('diff2html');
 const sideBySideDiff = 'sidebysidediff';
 const textDiff = 'textdiff';
@@ -26,15 +26,15 @@ class WordWrap {
 class Type {
   constructor() {
     if (
-      !!ffungit.config.diffType &&
-      ffungit.config.diffType !== textDiff &&
-      ffungit.config.diffType !== sideBySideDiff
+      !!fungit.config.diffType &&
+      fungit.config.diffType !== textDiff &&
+      fungit.config.diffType !== sideBySideDiff
     ) {
-      ffungit.config.diffType = textDiff;
+      fungit.config.diffType = textDiff;
       console.log('Config "diffType" must be either "textdiff" or "sidebysidediff".');
     }
 
-    this.value = ko.observable(ffungit.config.diffType || textDiff);
+    this.value = ko.observable(fungit.config.diffType || textDiff);
 
     this.toggle = () => {
       this.value(this.value() === textDiff ? sideBySideDiff : textDiff);
@@ -46,7 +46,7 @@ class Type {
 
 class WhiteSpace {
   constructor() {
-    this.value = ko.observable(ffungit.config.ignoreWhiteSpaceDiff);
+    this.value = ko.observable(fungit.config.ignoreWhiteSpaceDiff);
 
     this.toggle = () => {
       this.value(!this.value());
@@ -130,7 +130,7 @@ class TextDiffViewModel {
         if (err.errorCode != 'no-such-file') {
           this.server.unhandledRejection(err);
         } else {
-          ffungit.logger.warn('diff, no such file', err);
+          fungit.logger.warn('diff, no such file', err);
         }
       });
   }

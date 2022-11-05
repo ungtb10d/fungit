@@ -6,7 +6,7 @@
     "mocha": true
   },
   "globals": {
-    "ffungit": "readonly"
+    "fungit": "readonly"
   },
   "rules": {
     "mocha/no-mocha-arrows": "off",

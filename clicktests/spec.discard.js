@@ -37,7 +37,7 @@ describe('[DISCARD - noWarn]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[0]);
+    return environment.openfungit(testRepoPaths[0]);
   });
 
   it('Should be possible to discard a created file without warning message', () => {
@@ -61,7 +61,7 @@ describe('[DISCARD - withWarn]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[0]);
+    return environment.openfungit(testRepoPaths[0]);
   });
 
   it('Should be possible to select no from discard', () => {

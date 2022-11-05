@@ -47,12 +47,12 @@ const baseDir = path.join(__dirname, '..');
     noParse: ['dnd-page-scroll', 'jquery', 'knockout'],
     debug: true,
   });
-  b.require(path.join(publicSourceDir, 'components.js'), { expose: 'ffungit-components' });
-  b.require(path.join(publicSourceDir, 'main.js'), { expose: 'ffungit-main' });
-  b.require(path.join(publicSourceDir, 'navigation.js'), { expose: 'ffungit-navigation' });
-  b.require(path.join(publicSourceDir, 'program-events.js'), { expose: 'ffungit-program-events' });
-  b.require(path.join(publicSourceDir, 'storage.js'), { expose: 'ffungit-storage' });
-  b.require(path.join(baseDir, 'source/address-parser.js'), { expose: 'ffungit-address-parser' });
+  b.require(path.join(publicSourceDir, 'components.js'), { expose: 'fungit-components' });
+  b.require(path.join(publicSourceDir, 'main.js'), { expose: 'fungit-main' });
+  b.require(path.join(publicSourceDir, 'navigation.js'), { expose: 'fungit-navigation' });
+  b.require(path.join(publicSourceDir, 'program-events.js'), { expose: 'fungit-program-events' });
+  b.require(path.join(publicSourceDir, 'storage.js'), { expose: 'fungit-storage' });
+  b.require(path.join(baseDir, 'source/address-parser.js'), { expose: 'fungit-address-parser' });
   b.require('bluebird', { expose: 'bluebird' });
   b.require('blueimp-md5', { expose: 'blueimp-md5' });
   b.require('diff2html', { expose: 'diff2html' });
@@ -64,14 +64,14 @@ const baseDir = path.join(__dirname, '..');
   b.require('@primer/octicons', { expose: 'octicons' });
   b.require('signals', { expose: 'signals' });
   b.require('winston', { expose: 'winston' });
-  const ffungitjsFile = path.join(baseDir, 'public/js/ffungit.js');
-  const mapFile = path.join(baseDir, 'public/js/ffungit.js.map');
+  const fungitjsFile = path.join(baseDir, 'public/js/fungit.js');
+  const mapFile = path.join(baseDir, 'public/js/fungit.js.map');
   await new Promise((resolve) => {
-    const outFile = fsSync.createWriteStream(ffungitjsFile);
+    const outFile = fsSync.createWriteStream(fungitjsFile);
     outFile.on('close', () => resolve());
     b.bundle().pipe(exorcist(mapFile)).pipe(outFile);
   });
-  console.log(`browserify ${path.relative(baseDir, ffungitjsFile)}`);
+  console.log(`browserify ${path.relative(baseDir, fungitjsFile)}`);
 
   console.log('browserify:components');
   for (const component of components) {

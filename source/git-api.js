@@ -984,7 +984,7 @@ exports.registerApi = (env) => {
   // This method isn't called by the client but by credentials-helper.js
   app.get(`${exports.pathPrefix}/credentials`, (req, res) => {
     // this endpoint can only be invoked from localhost, since the credentials-helper is always
-    // on the same machine that we're running ffungit on
+    // on the same machine that we're running fungit on
     if (req.ip != '127.0.0.1' && req.ip != '::ffff:127.0.0.1') {
       logger.info(`Trying to get credentials from unathorized ip: ${req.ip}`);
       res.status(400).json({ errorCode: 'request-from-unathorized-location' });

@@ -1,9 +1,9 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const navigation = require('ffungit-navigation');
-const programEvents = require('ffungit-program-events');
-const { encodePath } = require('ffungit-address-parser');
+const components = require('fungit-components');
+const navigation = require('fungit-navigation');
+const programEvents = require('fungit-program-events');
+const { encodePath } = require('fungit-address-parser');
 
 components.register('header', (args) => new HeaderViewModel(args.app));
 
@@ -12,7 +12,7 @@ class HeaderViewModel {
     this.app = app;
     this.showBackButton = ko.observable(false);
     this.path = ko.observable();
-    this.currentVersion = ffungit.version;
+    this.currentVersion = fungit.version;
     this.refreshButton = components.create('refreshbutton', { isLarge: true });
     this.showAddToRepoListButton = ko.computed(
       () => this.path() && !this.app.repoList().includes(this.path())

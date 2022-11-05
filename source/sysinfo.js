@@ -4,10 +4,10 @@ const semver = require('semver');
 const logger = require('./utils/logger');
 const config = require('./config');
 
-exports.getffungitLatestVersion = () => {
+exports.getfungitLatestVersion = () => {
   // eslint-disable-next-line node/no-unsupported-features/es-syntax
   return import('latest-version').then((latestVersion) => {
-    return latestVersion.default('ffungit');
+    return latestVersion.default('fungit');
   });
 };
 
@@ -30,12 +30,12 @@ exports.getGitVersionInfo = () => {
   };
 
   if (!config.gitVersion) {
-    result.error = `Failed to parse git version number. Note that ffungit requires git version ${result.requiredVersion}`;
+    result.error = `Failed to parse git version number. Note that fungit requires git version ${result.requiredVersion}`;
   } else {
     result.version = config.gitVersion;
     result.satisfied = semver.satisfies(result.version, result.requiredVersion);
     if (!result.satisfied) {
-      result.error = `ffungit requires git version ${result.requiredVersion}, you are currently running ${result.version}`;
+      result.error = `fungit requires git version ${result.requiredVersion}, you are currently running ${result.version}`;
     }
   }
 

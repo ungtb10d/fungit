@@ -1,4 +1,4 @@
-declare const ffungit: any;
+declare const fungit: any;
 
 export class ModalViewModel {
   title: string
@@ -10,7 +10,7 @@ export class ModalViewModel {
   }
 
   close() {
-    ffungit.programEvents.dispatch({ event: 'modal-close-dialog', modal: this });
+    fungit.programEvents.dispatch({ event: 'modal-close-dialog', modal: this });
   }
 }
 

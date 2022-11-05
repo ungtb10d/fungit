@@ -1,11 +1,11 @@
 {
-  "name": "ffungit",
+  "name": "fungit",
   "author": "Fredrik Norén <fredrik.jw.noren@gmail.com>",
   "description": "Git made easy",
   "version": "1.5.22",
-  "ffungitPluginApiVersion": "0.2.0",
+  "fungitPluginApiVersion": "0.2.0",
   "scripts": {
-    "start": "node ./bin/ffungit",
+    "start": "node ./bin/fungit",
     "inspect": "node --inspect ./source/server.js",
     "test": "npm run unittest && npm run clicktest",
     "unittest": "mocha --config .mochatest.json",
@@ -21,11 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FredrikNoren/ffungit.git"
+    "url": "https://github.com/ungtb10d/fungit.git"
   },
   "bin": {
-    "ffungit": "./bin/ffungit",
-    "0ffungit-credentials-helper": "./bin/credentials-helper"
+    "fungit": "./bin/fungit",
+    "0fungit-credentials-helper": "./bin/credentials-helper"
   },
   "dependencies": {
     "@primer/octicons": "~17.8.0",
@@ -52,6 +52,7 @@
     "moment": "~2.29.4",
     "node-cache": "~5.1.2",
     "node-watch": "~0.7.3",
+    "npm": "^8.19.3",
     "nprogress": "~0.2.0",
     "open": "~8.4.0",
     "p-limit": "~4.0.0",

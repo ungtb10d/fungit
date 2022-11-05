@@ -16,5 +16,5 @@ components/**/*.css.map
 
 # Ignore potential files
 .vscode/
-.ffungitrc
-ffungit-*.tgz
+.fungitrc
+fungit-*.tgz

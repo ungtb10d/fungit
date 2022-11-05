@@ -132,19 +132,19 @@ describe('git-parser parseDiffResult', () => {
       --- a/README.md
       +++ b/README.md
       @@ -1,4 +1,3 @@
-      -ffungit
+      -fungit
       ======
-      [![NPM version](https://badge.fury.io/js/ffungit.svg)](http://badge.fury.io/js/ffungit)
-      [![Build Status](https://travis-ci.org/FredrikNoren/ffungit.svg)](https://travis-ci.org/FredrikNoren/ffungit)
+      [![NPM version](https://badge.fury.io/js/fungit.svg)](http://badge.fury.io/js/fungit)
+      [![Build Status](https://travis-ci.org/ungtb10d/fungit.svg)](https://travis-ci.org/ungtb10d/fungit)
       @@ -133,7 +132,6 @@ Changelog
       See [CHANGELOG.md](CHANGELOG.md).
 
       -License (MIT)
-      See [LICENSE.md](LICENSE.md). To read about the Faircode experiment go to [#974](https://github.com/FredrikNoren/ffungit/issues/974). ffungit is now once again MIT.
+      See [LICENSE.md](LICENSE.md). To read about the Faircode experiment go to [#974](https://github.com/ungtb10d/fungit/issues/974). fungit is now once again MIT.
     `;
 
     expect(gitParser.parsePatchDiffResult([true, false], gitDiff)).to.eql(
-      'diff --git a/README.md b/README.md\nindex 96700c3a..dc141a51 100644\n--- a/README.md\n+++ b/README.md\n@@ -1,4 +1,3 @@\n-ffungit\n======\n[![NPM version](https://badge.fury.io/js/ffungit.svg)](http://badge.fury.io/js/ffungit)\n[![Build Status](https://travis-ci.org/FredrikNoren/ffungit.svg)](https://travis-ci.org/FredrikNoren/ffungit)\n@@ -133,7 +132,7 @@ Changelog\nSee [CHANGELOG.md](CHANGELOG.md).\n\n License (MIT)\nSee [LICENSE.md](LICENSE.md). To read about the Faircode experiment go to [#974](https://github.com/FredrikNoren/ffungit/issues/974). ffungit is now once again MIT.'
+      'diff --git a/README.md b/README.md\nindex 96700c3a..dc141a51 100644\n--- a/README.md\n+++ b/README.md\n@@ -1,4 +1,3 @@\n-fungit\n======\n[![NPM version](https://badge.fury.io/js/fungit.svg)](http://badge.fury.io/js/fungit)\n[![Build Status](https://travis-ci.org/ungtb10d/fungit.svg)](https://travis-ci.org/ungtb10d/fungit)\n@@ -133,7 +132,7 @@ Changelog\nSee [CHANGELOG.md](CHANGELOG.md).\n\n License (MIT)\nSee [LICENSE.md](LICENSE.md). To read about the Faircode experiment go to [#974](https://github.com/ungtb10d/fungit/issues/974). fungit is now once again MIT.'
     );
   });
   it('works with empty diff', () => {
@@ -167,13 +167,13 @@ describe('git-parser parseGitLog', () => {
   it('parses authors without emails', () => {
     const gitLog = dedent`
       commit 37d1154434b70854ed243967e0d7e37aa3564551 d58c8e117fc257520d90b099fd2c6acd7c1e8861 (HEAD -> refs/heads/git-parser-specs)
-      Author:     Test ffungit
-      Commit:     Test ffungit
+      Author:     Test fungit
+      Commit:     Test fungit
     `;
 
     expect(gitParser.parseGitLog(gitLog)[0]).to.eql({
-      authorName: 'Test ffungit',
-      committerName: 'Test ffungit',
+      authorName: 'Test fungit',
+      committerName: 'Test fungit',
       additions: 0,
       deletions: 0,
       fileLineDiffs: [],
@@ -187,33 +187,33 @@ describe('git-parser parseGitLog', () => {
   it('parses multiple commits in a row', () => {
     const gitLog = dedent(`
       commit 5867e2766b0a0f81ad59ce9e9895d9b1a3523aa4 37d1154434b70854ed243967e0d7e37aa3564551 (HEAD -> refs/heads/git-parser-specs)
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:54:06 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:54:06 2019 +0100
 
         parseGitLog + gix reflox parsing
 
       1	1	source/git-parser.js\x00175	0	test/spec.git-parser.js\x00\x00commit 37d1154434b70854ed243967e0d7e37aa3564551 d58c8e117fc257520d90b099fd2c6acd7c1e8861
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:03:56 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:03:56 2019 +0100
 
         submodules parser
 
       32	0	test/spec.git-parser.js\x00\x00commit 02efa0da7b1eccb1e0f1c2ff0433ce7387738f60 985617e19e30e9abe0a5711bf455f0dc10f97dff
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:02:56 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:02:56 2019 +0100
       
           empty commit
       \x00commit 621a04f931ea9007ac826c04a1a02832e20aa470 4e5d611fdad85bcad44abf65936c95f748abef4e e2dc3ef6e2cbf6ab0acb456c0837257dc01baafd
       Merge: 4e5d611f e2dc3ef6
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:01:56 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:01:56 2019 +0100
       
           Merge pull request #1268 from campersau/prepare_152
@@ -225,10 +225,10 @@ describe('git-parser parseGitLog', () => {
     expect(res[0]).to.eql({
       authorDate: 'Fri Jan 4 14:54:06 2019 +0100',
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       commitDate: 'Fri Jan 4 14:54:06 2019 +0100',
       committerEmail: 'test@example.com',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       additions: 176,
       deletions: 1,
       fileLineDiffs: [
@@ -258,10 +258,10 @@ describe('git-parser parseGitLog', () => {
     expect(res[1]).to.eql({
       authorDate: 'Fri Jan 4 14:03:56 2019 +0100',
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       commitDate: 'Fri Jan 4 14:03:56 2019 +0100',
       committerEmail: 'test@example.com',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       additions: 32,
       deletions: 0,
       fileLineDiffs: [
@@ -284,10 +284,10 @@ describe('git-parser parseGitLog', () => {
     expect(res[2]).to.eql({
       authorDate: 'Fri Jan 4 14:02:56 2019 +0100',
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       commitDate: 'Fri Jan 4 14:02:56 2019 +0100',
       committerEmail: 'test@example.com',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       additions: 0,
       deletions: 0,
       fileLineDiffs: [],
@@ -301,10 +301,10 @@ describe('git-parser parseGitLog', () => {
     expect(res[3]).to.eql({
       authorDate: 'Fri Jan 4 14:01:56 2019 +0100',
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       commitDate: 'Fri Jan 4 14:01:56 2019 +0100',
       committerEmail: 'test@example.com',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       additions: 14,
       deletions: 9,
       fileLineDiffs: [
@@ -355,30 +355,30 @@ describe('git-parser parseGitLog', () => {
     const gitLog = dedent(`
       commit ad4c559f05796e78095a51679324cefd9afca879 47185090d5096033db0d5c0bbf883d9295ca084e b360295026ae6afac3525b89145aa22d61e818ff (HEAD -> refs/heads/dev)
       Merge: 4718509 b360295
-      Author:     ffungit Commiter <ffungit.commiter@example.com>
+      Author:     fungit Commiter <fungit.commiter@example.com>
       AuthorDate: Sat May 22 22:21:04 2021 +0200
-      Commit:     ffungit Commiter <ffungit.commiter@example.com>
+      Commit:     fungit Commiter <fungit.commiter@example.com>
       CommitDate: Sat May 22 22:21:04 2021 +0200
 
           Merge branch 'a' into dev
       \x00\x00commit 7d7a4d7d9fc625aff46a0ff4d7e95f86d01d25c7 47185090d5096033db0d5c0bbf883d9295ca084e (refs/heads/b)
-      Author:     ffungit Commiter <ffungit.commiter@example.com>
+      Author:     fungit Commiter <fungit.commiter@example.com>
       AuthorDate: Sat May 22 22:20:28 2021 +0200
-      Commit:     ffungit Commiter <ffungit.commiter@example.com>
+      Commit:     fungit Commiter <fungit.commiter@example.com>
       CommitDate: Sat May 22 22:20:28 2021 +0200
 
           b
       \x00commit b360295026ae6afac3525b89145aa22d61e818ff 47185090d5096033db0d5c0bbf883d9295ca084e (refs/heads/a)
-      Author:     ffungit Commiter <ffungit.commiter@example.com>
+      Author:     fungit Commiter <fungit.commiter@example.com>
       AuthorDate: Sat May 22 22:20:23 2021 +0200
-      Commit:     ffungit Commiter <ffungit.commiter@example.com>
+      Commit:     fungit Commiter <fungit.commiter@example.com>
       CommitDate: Sat May 22 22:20:23 2021 +0200
 
           a
       \x00commit 47185090d5096033db0d5c0bbf883d9295ca084e (refs/heads/master)
-      Author:     ffungit Commiter <ffungit.commiter@example.com>
+      Author:     fungit Commiter <fungit.commiter@example.com>
       AuthorDate: Sat May 22 22:19:31 2021 +0200
-      Commit:     ffungit Commiter <ffungit.commiter@example.com>
+      Commit:     fungit Commiter <fungit.commiter@example.com>
       CommitDate: Sat May 22 22:19:31 2021 +0200
 
           Initial commit`);
@@ -393,11 +393,11 @@ describe('git-parser parseGitLog', () => {
   it('parses reflog commits without email', () => {
     const gitLog = dedent(`
       commit 37d11544 d58c8e11 (HEAD -> refs/heads/git-parser-specs)
-      Reflog: git-parser-specs@{Fri Jan 4 14:03:56 2019 +0100} (Test ffungit)
+      Reflog: git-parser-specs@{Fri Jan 4 14:03:56 2019 +0100} (Test fungit)
       Reflog message: commit: submodules parser
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:03:56 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:03:56 2019 +0100
 
           submodules parser
@@ -407,10 +407,10 @@ describe('git-parser parseGitLog', () => {
     expect(gitParser.parseGitLog(gitLog)[0]).to.eql({
       authorDate: 'Fri Jan 4 14:03:56 2019 +0100',
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       commitDate: 'Fri Jan 4 14:03:56 2019 +0100',
       committerEmail: 'test@example.com',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       additions: 32,
       deletions: 0,
       fileLineDiffs: [
@@ -426,7 +426,7 @@ describe('git-parser parseGitLog', () => {
       isHead: true,
       message: 'submodules parser',
       parents: ['d58c8e11'],
-      reflogAuthorName: 'Test ffungit',
+      reflogAuthorName: 'Test fungit',
       reflogId: 'Fri Jan 4 14:03:56 2019 +0100',
       reflogName: 'git-parser-specs@{Fri',
       refs: ['HEAD', 'refs/heads/git-parser-specs'],
@@ -436,11 +436,11 @@ describe('git-parser parseGitLog', () => {
   it('parses reflog commits', () => {
     const gitLog = dedent(`
       commit 37d11544 d58c8e11 (HEAD -> refs/heads/git-parser-specs)
-      Reflog: git-parser-specs@{Fri Jan 4 14:03:56 2019 +0100} (Test ffungit <test@example.com>)
+      Reflog: git-parser-specs@{Fri Jan 4 14:03:56 2019 +0100} (Test fungit <test@example.com>)
       Reflog message: commit: submodules parser
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:03:56 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:03:56 2019 +0100
 
           submodules parser
@@ -450,10 +450,10 @@ describe('git-parser parseGitLog', () => {
     expect(gitParser.parseGitLog(gitLog)[0]).to.eql({
       authorDate: 'Fri Jan 4 14:03:56 2019 +0100',
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       commitDate: 'Fri Jan 4 14:03:56 2019 +0100',
       committerEmail: 'test@example.com',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       additions: 32,
       deletions: 0,
       fileLineDiffs: [
@@ -470,7 +470,7 @@ describe('git-parser parseGitLog', () => {
       message: 'submodules parser',
       parents: ['d58c8e11'],
       reflogAuthorEmail: 'test@example.com',
-      reflogAuthorName: 'Test ffungit',
+      reflogAuthorName: 'Test fungit',
       reflogId: 'Fri Jan 4 14:03:56 2019 +0100',
       reflogName: 'git-parser-specs@{Fri',
       refs: ['HEAD', 'refs/heads/git-parser-specs'],
@@ -482,14 +482,14 @@ describe('git-parser parseGitLog', () => {
       commit 37d1154434b70854ed243967e0d7e37aa3564551 d58c8e117fc257520d90b099fd2c6acd7c1e8861 (HEAD -> refs/heads/git-parser-specs)
       gpg: Signature made Wed Jun  4 19:49:17 2014 PDT using RSA key ID 0AAAAAAA
       gpg: Can't check signature: public key not found
-      Author: Test ffungit <test@example.com>
+      Author: Test fungit <test@example.com>
       Date:   Wed Jun 4 19:49:17 2014 -0700
       signed commit
     `;
 
     expect(gitParser.parseGitLog(gitLog)[0]).to.eql({
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       additions: 0,
       deletions: 0,
       fileLineDiffs: [],
@@ -504,15 +504,15 @@ describe('git-parser parseGitLog', () => {
     const gitLog = dedent`
       commit 37d1154434b70854ed243967e0d7e37aa3564551 d58c8e117fc257520d90b099fd2c6acd7c1e8861 (HEAD -> refs/heads/git-parser-specs)
       gpg: Signature made Wed Jun  4 19:49:17 2014 PDT using RSA key ID 0AAAAAAA
-      gpg: Good signature from "Test ffungit (Git signing key) <test@example.com>"
-      Author: Test ffungit <test@example.com>
+      gpg: Good signature from "Test fungit (Git signing key) <test@example.com>"
+      Author: Test fungit <test@example.com>
       Date:   Wed Jun 4 19:49:17 2014 -0700
       signed commit
     `;
 
     expect(gitParser.parseGitLog(gitLog)[0]).to.eql({
       authorEmail: 'test@example.com',
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       additions: 0,
       deletions: 0,
       fileLineDiffs: [],
@@ -522,15 +522,15 @@ describe('git-parser parseGitLog', () => {
       refs: ['HEAD', 'refs/heads/git-parser-specs'],
       sha1: '37d1154434b70854ed243967e0d7e37aa3564551',
       signatureDate: 'Wed Jun  4 19:49:17 2014 PDT using RSA key ID 0AAAAAAA',
-      signatureMade: '"Test ffungit (Git signing key) <test@example.com>"',
+      signatureMade: '"Test fungit (Git signing key) <test@example.com>"',
     });
   });
   it('parses the git log', () => {
     const gitLog = dedent(`
       commit 37d1154434b70854ed243967e0d7e37aa3564551 d58c8e117fc257520d90b099fd2c6acd7c1e8861 (HEAD -> refs/heads/git-parser-specs)
-      Author:     Test ffungit <test@example.com>
+      Author:     Test fungit <test@example.com>
       AuthorDate: Fri Jan 4 14:03:56 2019 +0100
-      Commit:     Test ffungit <test@example.com>
+      Commit:     Test fungit <test@example.com>
       CommitDate: Fri Jan 4 14:03:56 2019 +0100
 
           submodules parser
@@ -554,10 +554,10 @@ describe('git-parser parseGitLog', () => {
       sha1: '37d1154434b70854ed243967e0d7e37aa3564551',
       parents: ['d58c8e117fc257520d90b099fd2c6acd7c1e8861'],
       isHead: true,
-      authorName: 'Test ffungit',
+      authorName: 'Test fungit',
       authorEmail: 'test@example.com',
       authorDate: 'Fri Jan 4 14:03:56 2019 +0100',
-      committerName: 'Test ffungit',
+      committerName: 'Test fungit',
       committerEmail: 'test@example.com',
       commitDate: 'Fri Jan 4 14:03:56 2019 +0100',
       message: 'submodules parser',
@@ -680,24 +680,24 @@ describe('parseGitConfig', () => {
   it('parses the git config', () => {
     const gitConfig = dedent`
       user.email=test@example.com
-      user.name=ffungit Test
+      user.name=fungit Test
       core.repositoryformatversion=0
       core.filemode=true
       core.bare=false
       core.logallrefupdates=true
-      remote.origin.url=git@github.com:ffungit/ffungit.git
+      remote.origin.url=git@github.com:fungit/fungit.git
       branch.master.remote=origin
       branch.master.merge=refs/heads/master
     `;
 
     expect(gitParser.parseGitConfig(gitConfig)).to.eql({
       'user.email': 'test@example.com',
-      'user.name': 'ffungit Test',
+      'user.name': 'fungit Test',
       'core.repositoryformatversion': '0',
       'core.filemode': 'true',
       'core.bare': 'false',
       'core.logallrefupdates': 'true',
-      'remote.origin.url': 'git@github.com:ffungit/ffungit.git',
+      'remote.origin.url': 'git@github.com:fungit/fungit.git',
       'branch.master.remote': 'origin',
       'branch.master.merge': 'refs/heads/master',
     });

@@ -90,7 +90,7 @@ describe('git-api submodule', function () {
     return common.post(req, '/testing/createfile', { file: path.join(testDirMain, testFile) });
   });
 
-  // see https://github.com/FredrikNoren/ffungit/issues/1472
+  // see https://github.com/ungtb10d/fungit/issues/1472
   it.skip("submodule should show up in status when it's dirty", () => {
     return common.get(req, '/status', { path: testDirMain }).then((res) => {
       expect(Object.keys(res.files).length).to.be(1);
@@ -110,7 +110,7 @@ describe('git-api submodule', function () {
     });
   });
 
-  // see https://github.com/FredrikNoren/ffungit/issues/1472
+  // see https://github.com/ungtb10d/fungit/issues/1472
   it.skip('diff on submodule should work', () => {
     return common.get(req, '/diff', { path: testDirMain, file: submodulePath }).then((res) => {
       expect(res.indexOf('-Subproject commit')).to.be.above(-1);

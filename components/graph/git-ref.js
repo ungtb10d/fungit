@@ -1,8 +1,8 @@
 const ko = require('knockout');
 const md5 = require('blueimp-md5');
 const octicons = require('octicons');
-const programEvents = require('ffungit-program-events');
-const components = require('ffungit-components');
+const programEvents = require('fungit-program-events');
+const components = require('fungit-components');
 const Selectable = require('./selectable');
 
 class RefViewModel extends Selectable {
@@ -276,7 +276,7 @@ class RefViewModel extends Selectable {
         if (err.errorCode != 'merge-failed') {
           this.server.unhandledRejection(err);
         } else {
-          ffungit.logger.warn('checkout failed', err);
+          fungit.logger.warn('checkout failed', err);
         }
       });
   }

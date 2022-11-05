@@ -1,8 +1,8 @@
 const ko = require('knockout');
 const _ = require('lodash');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const programEvents = require('ffungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 
 components.register('remotes', (args) => new RemotesViewModel(args.server, args.repoPath));
 
@@ -24,7 +24,7 @@ class RemotesViewModel {
 
     this.fetchEnabled = ko.computed(() => this.remotes().length > 0);
 
-    this.shouldAutoFetch = ffungit.config.autoFetch;
+    this.shouldAutoFetch = fungit.config.autoFetch;
     this.updateRemotes();
   }
 
@@ -48,7 +48,7 @@ class RemotesViewModel {
 
   async fetch(options) {
     if (!this.currentRemote() || !options.tags) return;
-    ffungit.logger.debug('remotes.fetch() triggered');
+    fungit.logger.debug('remotes.fetch() triggered');
 
     try {
       const tagPromise = this.server.getPromise('/remote/tags', {
@@ -64,7 +64,7 @@ class RemotesViewModel {
       let stdout;
       let stderr;
       try {
-        errorMessage = `ffungit has failed to fetch a remote.  ${err.res.body.error}`;
+        errorMessage = `fungit has failed to fetch a remote.  ${err.res.body.error}`;
         stdout = err.res.body.stdout;
         stderr = err.res.body.stderr;
       } catch (e) {
@@ -75,7 +75,7 @@ class RemotesViewModel {
         if (this.server.isInternetConnected) {
           this.server.isInternetConnected = false;
           errorMessage =
-            'Could not resolve host. This usually means you are disconnected from internet and no longer push or fetch from remote. However, ffungit will be functional for local git operations.';
+            'Could not resolve host. This usually means you are disconnected from internet and no longer push or fetch from remote. However, fungit will be functional for local git operations.';
           stdout = '';
           stderr = '';
         } else {
@@ -96,7 +96,7 @@ class RemotesViewModel {
         },
       });
     } finally {
-      ffungit.logger.debug('remotes.fetch() finished');
+      fungit.logger.debug('remotes.fetch() finished');
     }
   }
 
@@ -130,7 +130,7 @@ class RemotesViewModel {
         if (err.errorCode != 'not-a-repository') {
           this.server.unhandledRejection(err);
         } else {
-          ffungit.logger.warn('updateRemotes failed', err);
+          fungit.logger.warn('updateRemotes failed', err);
         }
       });
   }
@@ -142,7 +142,7 @@ class RemotesViewModel {
   remoteRemove(remote) {
     components.showModal('yesnomodal', {
       title: 'Are you sure?',
-      details: `Deleting ${remote.name} remote cannot be undone with ffungit.`,
+      details: `Deleting ${remote.name} remote cannot be undone with fungit.`,
       closeFunc: (isYes) => {
         if (isYes) {
           this.server

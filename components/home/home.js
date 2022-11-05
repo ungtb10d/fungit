@@ -1,7 +1,7 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const { encodePath } = require('ffungit-address-parser');
+const components = require('fungit-components');
+const { encodePath } = require('fungit-address-parser');
 
 components.register('home', (args) => new HomeViewModel(args.app));
 
@@ -12,7 +12,7 @@ class HomeRepositoryViewModel {
     this.server = this.app.server;
     this.path = path;
     this.title = path;
-    this.link = `${ffungit.config.rootPath}/#/repository?path=${encodePath(path)}`;
+    this.link = `${fungit.config.rootPath}/#/repository?path=${encodePath(path)}`;
     this.pathRemoved = ko.observable(false);
     this.remote = ko.observable('...');
     this.updateState();

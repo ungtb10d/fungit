@@ -68,76 +68,76 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit
-          path: ffungit-*.tgz
+          name: fungit
+          path: fungit-*.tgz
           retention-days: 7
 
-      - name: Upload ffungit-darwin-arm64
+      - name: Upload fungit-darwin-arm64
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-darwin-arm64
-          path: dist/ffungit-darwin-arm64.zip
+          name: fungit-darwin-arm64
+          path: dist/fungit-darwin-arm64.zip
           retention-days: 7
 
-      - name: Upload ffungit-darwin-x64
+      - name: Upload fungit-darwin-x64
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-darwin-x64
-          path: dist/ffungit-darwin-x64.zip
+          name: fungit-darwin-x64
+          path: dist/fungit-darwin-x64.zip
           retention-days: 7
 
-      - name: Upload ffungit-linux-arm64
+      - name: Upload fungit-linux-arm64
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-linux-arm64
-          path: dist/ffungit-linux-arm64.zip
+          name: fungit-linux-arm64
+          path: dist/fungit-linux-arm64.zip
           retention-days: 7
 
-      - name: Upload ffungit-linux-armv7l
+      - name: Upload fungit-linux-armv7l
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-linux-armv7l
-          path: dist/ffungit-linux-armv7l.zip
+          name: fungit-linux-armv7l
+          path: dist/fungit-linux-armv7l.zip
           retention-days: 7
 
-      - name: Upload ffungit-linux-x64
+      - name: Upload fungit-linux-x64
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-linux-x64
-          path: dist/ffungit-linux-x64.zip
+          name: fungit-linux-x64
+          path: dist/fungit-linux-x64.zip
           retention-days: 7
 
-      - name: Upload ffungit-win32-arm64
+      - name: Upload fungit-win32-arm64
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-win32-arm64
-          path: dist/ffungit-win32-arm64.zip
+          name: fungit-win32-arm64
+          path: dist/fungit-win32-arm64.zip
           retention-days: 7
 
-      - name: Upload ffungit-win32-ia32
+      - name: Upload fungit-win32-ia32
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-win32-ia32
-          path: dist/ffungit-win32-ia32.zip
+          name: fungit-win32-ia32
+          path: dist/fungit-win32-ia32.zip
           retention-days: 7
 
-      - name: Upload ffungit-win32-x64
+      - name: Upload fungit-win32-x64
         if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14'
         uses: actions/upload-artifact@v3
         with:
-          name: ffungit-win32-x64
-          path: dist/ffungit-win32-x64.zip
+          name: fungit-win32-x64
+          path: dist/fungit-win32-x64.zip
           retention-days: 7
 
       - name: npm publish
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14' && github.repository == 'FredrikNoren/ffungit' && github.ref == 'refs/heads/master'
+        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14' && github.repository == 'ungtb10d/fungit' && github.ref == 'refs/heads/master'
         uses: actions/github-script@v6
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

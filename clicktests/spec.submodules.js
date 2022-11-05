@@ -13,7 +13,7 @@ describe('[SUMBODULES]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[1]);
+    return environment.openfungit(testRepoPaths[1]);
   });
 
   it('Submodule add', async () => {

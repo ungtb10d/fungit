@@ -1,6 +1,6 @@
 const components = {};
 module.exports = components;
-ffungit.components = components;
+fungit.components = components;
 
 components.registered = {};
 
@@ -16,6 +16,6 @@ components.create = function (name, args) {
 
 components.showModal = (name, args) => {
   const modal = components.create(name, args);
-  ffungit.programEvents.dispatch({ event: 'modal-show-dialog', modal: modal });
+  fungit.programEvents.dispatch({ event: 'modal-show-dialog', modal: modal });
   return modal;
 };

@@ -1,8 +1,8 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const programEvents = require('ffungit-program-events');
-const { encodePath } = require('ffungit-address-parser');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
+const { encodePath } = require('fungit-address-parser');
 
 components.register('repository', (args) => new RepositoryViewModel(args.server, args.path));
 
@@ -95,7 +95,7 @@ class RepositoryViewModel {
       .getPromise('/gitignore', { path: this.repoPath() })
       .then((res) => {
         return components.showModal('texteditmodal', {
-          title: `${this.repoPath()}${ffungit.config.fileSeparator}.gitignore`,
+          title: `${this.repoPath()}${fungit.config.fileSeparator}.gitignore`,
           content: res.content,
           closeFunc: (isYes) => {
             if (isYes) {
@@ -112,7 +112,7 @@ class RepositoryViewModel {
         programEvents.dispatch({
           event: 'git-error',
           data: {
-            command: `fs.write "${this.repoPath()}${ffungit.config.fileSeparator}.gitignore"`,
+            command: `fs.write "${this.repoPath()}${fungit.config.fileSeparator}.gitignore"`,
             error: e.message || e.errorSummary,
             stdout: '',
             stderr: e.stack,

@@ -1,4 +1,4 @@
-var programEvents = require('ffungit-program-events');
+var programEvents = require('fungit-program-events');
 
 var navigation = {};
 module.exports = navigation;

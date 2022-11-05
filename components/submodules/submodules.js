@@ -1,8 +1,8 @@
 const ko = require('knockout');
 const _ = require('lodash');
 const octicons = require('octicons');
-const components = require('ffungit-components');
-const programEvents = require('ffungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 const { ComponentRoot } = require('../ComponentRoot');
 
 components.register('submodules', (args) => new SubmodulesViewModel(args.server, args.repoPath));
@@ -38,7 +38,7 @@ class SubmodulesViewModel extends ComponentRoot {
       this.submodules(submodules);
       return this;
     } catch (e) {
-      ffungit.logger.error('error during fetchSubmodules', e);
+      fungit.logger.error('error during fetchSubmodules', e);
     }
   }
 
@@ -57,13 +57,13 @@ class SubmodulesViewModel extends ComponentRoot {
   }
 
   submodulePathClick(submodule) {
-    window.location.href = document.URL + ffungit.config.fileSeparator + submodule.path;
+    window.location.href = document.URL + fungit.config.fileSeparator + submodule.path;
   }
 
   submoduleRemove(submodule) {
     components.showModal('yesnomodal', {
       title: 'Are you sure?',
-      details: `Deleting ${submodule.name} submodule cannot be undone with ffungit.`,
+      details: `Deleting ${submodule.name} submodule cannot be undone with fungit.`,
       closeFunc: (isYes) => {
         if (!isYes) return;
         this.server

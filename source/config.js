@@ -12,13 +12,13 @@ const semver = require('semver');
 const isTestRun = process.argv.filter((arg) => arg.indexOf('mocha') >= 0).length > 0;
 
 const defaultConfig = {
-  // The port ffungit is exposed on.
+  // The port fungit is exposed on.
   port: 8448,
 
-  // The base URL ffungit will be accessible from.
+  // The base URL fungit will be accessible from.
   urlBase: 'http://localhost',
 
-  // The URL root path under which ffungit will be accesible.
+  // The URL root path under which fungit will be accesible.
   rootPath: '',
 
   // Directory to output log files.
@@ -48,10 +48,10 @@ const defaultConfig = {
   // Maximum number of concurrent git operations
   maxConcurrentGitOperations: 4,
 
-  // Launch a browser window with ffungit when ffungit is started
+  // Launch a browser window with fungit when fungit is started
   launchBrowser: true,
 
-  // Instead of launching ffungit with the current folder force a different path to be used. Can be set to null to force the home screen.
+  // Instead of launching fungit with the current folder force a different path to be used. Can be set to null to force the home screen.
   forcedLaunchPath: undefined,
 
   // Closes the server after x ms of inactivity. Mainly used by the clicktesting.
@@ -60,7 +60,7 @@ const defaultConfig = {
   // Don't fast forward git mergers. See git merge --no-ff documentation
   noFFMerge: true,
 
-  // Automatically fetch from remote when entering a repository using ffungit, periodically on activity detection, or on directory change
+  // Automatically fetch from remote when entering a repository using fungit, periodically on activity detection, or on directory change
   autoFetch: true,
 
   // Used for development purposes.
@@ -78,13 +78,13 @@ const defaultConfig = {
   // Example:
   //     # Override the browser launch command; use chrome's "app"
   //     #   argument to get a new, chromeless window for that "native feel"
-  //     $ ffungit --launchBrowser=0 --launchCommand "chrome --app=%U"
+  //     $ fungit --launchBrowser=0 --launchCommand "chrome --app=%U"
   launchCommand: undefined,
 
   // Allow checking out nodes (which results in a detached head)
   allowCheckoutNodes: false,
 
-  // An array of ip addresses that can connect to ffungit. All others are denied.
+  // An array of ip addresses that can connect to fungit. All others are denied.
   // null indicates all IPs are allowed.
   // Example (only allow localhost): allowedIPs: ["127.0.0.1"]
   allowedIPs: null,
@@ -94,7 +94,7 @@ const defaultConfig = {
   autoPruneOnFetch: true,
 
   // Directory to look for plugins
-  pluginDirectory: path.join(homedir, '.ffungit', 'plugins'),
+  pluginDirectory: path.join(homedir, '.fungit', 'plugins'),
 
   // Name-object pairs of configurations for plugins. To disable a plugin, use "disabled": true, for example:
   // "pluginConfigs": { "gerrit": { "disabled": true } }
@@ -103,8 +103,8 @@ const defaultConfig = {
   // Don't show errors when the user is using a bad or undecidable git version
   gitVersionCheckOverride: false,
 
-  // Don't show upgrade message when the user is using an older version of ffungit
-  ffungitVersionCheckOverride: false,
+  // Don't show upgrade message when the user is using an older version of fungit
+  fungitVersionCheckOverride: false,
 
   // Automatically does stash -> operation -> stash pop when you checkout, reset or cherry pick. This makes it
   // possible to perform those actions even when you have a dirty working directory.
@@ -153,11 +153,11 @@ const defaultConfig = {
   // instead of this flag)  more on this: https://help.github.com/articles/signing-commits-using-gpg/
   isForceGPGSign: false,
 
-  // Array of local git repo paths to display at the ffungit home page
+  // Array of local git repo paths to display at the fungit home page
   defaultRepositories: [],
 
   // a string of ip to bind to, default is `127.0.0.1`
-  ffungitBindIp: '127.0.0.1',
+  fungitBindIp: '127.0.0.1',
 
   // is front end animation enabled
   isAnimate: true,
@@ -172,10 +172,10 @@ const defaultConfig = {
   isEnableNumStat: true,
 };
 
-// Works for now but should be moved to bin/ffungit
+// Works for now but should be moved to bin/fungit
 const argv = yargs
   .usage('$0 [-v] [-b] [--cliconfigonly] [--gitVersionCheckOverride]')
-  .example('$0 --port=8888', 'Run ffungit on port 8888')
+  .example('$0 --port=8888', 'Run fungit on port 8888')
   .example(
     '$0 --no-logRESTRequests --logGitCommands',
     'Turn off REST logging but turn on git command log'
@@ -190,14 +190,14 @@ const argv = yargs
   .alias('v', 'version')
   .describe(
     'o',
-    'Ignore git version check and allow ffungit to run with possibly lower versions of git'
+    'Ignore git version check and allow fungit to run with possibly lower versions of git'
   )
   .boolean('o')
-  .describe('ffungitVersionCheckOverride', 'Ignore check for older version of ffungit')
-  .boolean('ffungitVersionCheckOverride')
+  .describe('fungitVersionCheckOverride', 'Ignore check for older version of fungit')
+  .boolean('fungitVersionCheckOverride')
   .describe(
     'b',
-    'Launch a browser window with ffungit when the ffungit server is started. --no-b or --no-launchBrowser disables this'
+    'Launch a browser window with fungit when the fungit server is started. --no-b or --no-launchBrowser disables this'
   )
   .boolean('b')
   .describe(
@@ -205,9 +205,9 @@ const argv = yargs
     'Ignore the default configuration points and only use parameters sent on the command line'
   )
   .boolean('cliconfigonly')
-  .describe('port', 'The port ffungit is exposed on')
-  .describe('urlBase', 'The base URL ffungit will be accessible from')
-  .describe('rootPath', 'The root path ffungit will be accessible from')
+  .describe('port', 'The port fungit is exposed on')
+  .describe('urlBase', 'The base URL fungit will be accessible from')
+  .describe('rootPath', 'The root path fungit will be accessible from')
   .describe('logDirectory', 'Directory to output log files')
   .describe('logRESTRequests', 'Write REST requests to the log')
   .boolean('logRESTRequests')
@@ -241,7 +241,7 @@ const argv = yargs
   .boolean('noFFMerge')
   .describe(
     'autoFetch',
-    'Automatically fetch from remote when entering a repository using ffungit, periodically on activity detection, or on directory change'
+    'Automatically fetch from remote when entering a repository using fungit, periodically on activity detection, or on directory change'
   )
   .boolean('autoFetch')
   .describe('dev', 'Used for development purposes')
@@ -258,7 +258,7 @@ const argv = yargs
   .boolean('allowCheckoutNodes')
   .describe(
     'allowedIPs',
-    'An array of ip addresses that can connect to ffungit. All others are denied'
+    'An array of ip addresses that can connect to fungit. All others are denied'
   )
   .describe(
     'autoPruneOnFetch',
@@ -266,10 +266,10 @@ const argv = yargs
   )
   .boolean('autoPruneOnFetch')
   .describe('pluginDirectory', 'Directory to look for plugins')
-  // --pluginConfigs doesn't work...  Probably only works in .ffungitrc as a json file
+  // --pluginConfigs doesn't work...  Probably only works in .fungitrc as a json file
   .describe(
     'pluginConfigs',
-    'No supported as a command line argument, use ffungitrc config file.  See README.md'
+    'No supported as a command line argument, use fungitrc config file.  See README.md'
   )
   .describe('autoStashAndPop', 'Used for development purposes')
   .boolean('autoStashAndPop')
@@ -309,9 +309,9 @@ const argv = yargs
   .boolean('isForceGPGSign')
   .describe(
     'defaultRepositories',
-    'Array of local git repo paths to display at the ffungit home page'
+    'Array of local git repo paths to display at the fungit home page'
   )
-  .describe('ffungitBindIp', 'a string of ip to bind to, default is `127.0.0.1`')
+  .describe('fungitBindIp', 'a string of ip to bind to, default is `127.0.0.1`')
   .describe('isAnimate', 'is front end animation enabled')
   .boolean('isAnimate')
   .describe('isDisableProgressBar', 'disable progress bar (front end api)')
@@ -327,8 +327,8 @@ const argv = yargs
   .boolean('isEnableNumStat');
 const argvConfig = argv.argv;
 
-// When ffungit is started normally, $0 == ffungit, and non-hyphenated options exists, show help and exit.
-if (argvConfig.$0.endsWith('ffungit') && argvConfig._ && argvConfig._.length > 0) {
+// When fungit is started normally, $0 == fungit, and non-hyphenated options exists, show help and exit.
+if (argvConfig.$0.endsWith('fungit') && argvConfig._ && argvConfig._.length > 0) {
   yargs.showHelp();
   process.exit(0);
 }
@@ -336,12 +336,12 @@ if (argvConfig.$0.endsWith('ffungit') && argvConfig._ && argvConfig._.length > 0
 let rcConfig = {};
 if (!argvConfig.cliconfigonly) {
   try {
-    rcConfig = rc('ffungit');
+    rcConfig = rc('fungit');
     // rc return additional options that must be ignored
     delete rcConfig['config'];
     delete rcConfig['configs'];
   } catch (err) {
-    console.error(`Stop at reading ~/.ffungitrc because ${err}`);
+    console.error(`Stop at reading ~/.fungitrc because ${err}`);
     process.exit(0);
   }
 }
@@ -390,18 +390,18 @@ try {
   throw e;
 }
 
-module.exports.ffungitPackageVersion = require('../package.json').version;
+module.exports.fungitPackageVersion = require('../package.json').version;
 
-let devVersion = module.exports.ffungitPackageVersion;
+let devVersion = module.exports.fungitPackageVersion;
 if (fs.existsSync(path.join(__dirname, '..', '.git'))) {
   const revision = child_process
     .execSync('git rev-parse --short HEAD', { cwd: path.join(__dirname, '..') })
     .toString()
     .replace('\n', ' ')
     .trim();
-  devVersion = `dev-${module.exports.ffungitPackageVersion}-${revision}`;
+  devVersion = `dev-${module.exports.fungitPackageVersion}-${revision}`;
 }
-module.exports.ffungitDevVersion = devVersion;
+module.exports.fungitDevVersion = devVersion;
 
 if (module.exports.alwaysLoadActiveBranch) {
   module.exports.maxActiveBranchSearchIteration = 25;

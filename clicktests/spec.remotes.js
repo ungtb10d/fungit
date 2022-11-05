@@ -18,7 +18,7 @@ describe('[REMOTES]', () => {
   after('Environment stop', () => environment.shutdown());
 
   it('Open path screen', () => {
-    return environment.openffungit(testRepoPaths[1]);
+    return environment.openfungit(testRepoPaths[1]);
   });
 
   it('Should not be possible to push without remote', async () => {

@@ -13,12 +13,12 @@
     "paths": {
       "mina": ["./node_modules/snapsvg/src/mina"],
       "octicons": ["./node_modules/@primer/octicons"],
-      "ffungit-address-parser": ["./source/address-parser"],
-      "ffungit-components": ["./public/source/components"],
-      "ffungit-main": ["./public/source/main"],
-      "ffungit-navigation": ["./public/source/navigation"],
-      "ffungit-program-events": ["./public/source/program-events"],
-      "ffungit-storage": ["./public/source/storage"]
+      "fungit-address-parser": ["./source/address-parser"],
+      "fungit-components": ["./public/source/components"],
+      "fungit-main": ["./public/source/main"],
+      "fungit-navigation": ["./public/source/navigation"],
+      "fungit-program-events": ["./public/source/program-events"],
+      "fungit-storage": ["./public/source/storage"]
     }
   },
   "exclude": ["node_modules", "build", "coverage", "public/js", "**/*.min.js", "**/*.bundle.js", "clicktests", "test"]

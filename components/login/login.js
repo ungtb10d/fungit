@@ -1,5 +1,5 @@
 const ko = require('knockout');
-const components = require('ffungit-components');
+const components = require('fungit-components');
 const signals = require('signals');
 
 components.register('login', (args) => new LoginViewModel(args.server));

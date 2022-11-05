@@ -9,13 +9,13 @@ const assureArray = (obj) => {
   return Array.isArray(obj) ? obj : [obj];
 };
 
-class ffungitPlugin {
+class fungitPlugin {
   constructor(args) {
     this.dir = args.dir;
     this.path = args.path;
     this.httpBasePath = args.httpBasePath;
     this.manifest = JSON.parse(
-      fsSync.readFileSync(path.join(this.path, 'ffungit-plugin.json'), { encoding: 'utf8' })
+      fsSync.readFileSync(path.join(this.path, 'fungit-plugin.json'), { encoding: 'utf8' })
     );
     this.name = this.manifest.name || this.dir;
     this.config = config.pluginConfigs[this.name] || {};
@@ -35,7 +35,7 @@ class ffungitPlugin {
         socketsById: env.socketsById,
         pluginConfig: this.config,
         httpPath: `${env.pathPrefix}/plugins/${this.name}`,
-        pluginApiVersion: require('../package.json').ffungitPluginApiVersion,
+        pluginApiVersion: require('../package.json').fungitPluginApiVersion,
       });
     }
     env.app.use(`/plugins/${this.name}`, express.static(this.path));
@@ -115,4 +115,4 @@ class ffungitPlugin {
       });
   }
 }
-module.exports = ffungitPlugin;
+module.exports = fungitPlugin;
