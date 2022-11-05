@@ -1,14 +1,11 @@
 fungit
 ======
-[![NPM version](https://badge.fury.io/js/fungit.svg)](https://badge.fury.io/js/fungit)
 [![CI](https://github.com/ungtb10d/fungit/actions/workflows/ci.yml/badge.svg)](https://github.com/ungtb10d/fungit/actions/workflows/ci.yml)
 [![Join the chat at https://gitter.im/ungtb10d/fungit](https://badges.gitter.im/ungtb10d/fungit.svg)](https://gitter.im/ungtb10d/fungit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 The easiest way to use git. On any platform. Anywhere.
 
-[![xkcd](xkcd.png "If that doesn't fix it, git.txt contains the phone number of a friend of mine who understands git. Just wait through a few minutes of 'It's really pretty simple, just think of branches as...' and eventually you'll learn the commands that will fix everything.")](https://xkcd.com/1597/)
-
-Git is known for being a versatile distributed source control system that is a staple of many individuals, communities, and even for [the City of Chattanooga to crowd source bicycle parking locations](https://github.com/cityofchattanooga/Bicycle-Parking).  However, it is not known for userfriendliness or easy learning curve.
+Shit is known for being a versatile distributed source control system that is a staple of many individuals, communities, and even for [the City of Chattanooga to crowd source bicycle parking locations](https://github.com/cityofchattanooga/Bicycle-Parking).  However, it is not known for userfriendliness or easy learning curve.
 
 fungit brings user friendliness to git without sacrificing the versatility of git.
 
