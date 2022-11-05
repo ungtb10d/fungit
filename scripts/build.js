@@ -47,12 +47,12 @@ const baseDir = path.join(__dirname, '..');
     noParse: ['dnd-page-scroll', 'jquery', 'knockout'],
     debug: true,
   });
-  b.require(path.join(publicSourceDir, 'components.js'), { expose: 'ungit-components' });
-  b.require(path.join(publicSourceDir, 'main.js'), { expose: 'ungit-main' });
-  b.require(path.join(publicSourceDir, 'navigation.js'), { expose: 'ungit-navigation' });
-  b.require(path.join(publicSourceDir, 'program-events.js'), { expose: 'ungit-program-events' });
-  b.require(path.join(publicSourceDir, 'storage.js'), { expose: 'ungit-storage' });
-  b.require(path.join(baseDir, 'source/address-parser.js'), { expose: 'ungit-address-parser' });
+  b.require(path.join(publicSourceDir, 'components.js'), { expose: 'fungit-components' });
+  b.require(path.join(publicSourceDir, 'main.js'), { expose: 'fungit-main' });
+  b.require(path.join(publicSourceDir, 'navigation.js'), { expose: 'fungit-navigation' });
+  b.require(path.join(publicSourceDir, 'program-events.js'), { expose: 'fungit-program-events' });
+  b.require(path.join(publicSourceDir, 'storage.js'), { expose: 'fungit-storage' });
+  b.require(path.join(baseDir, 'source/address-parser.js'), { expose: 'fungit-address-parser' });
   b.require('bluebird', { expose: 'bluebird' });
   b.require('blueimp-md5', { expose: 'blueimp-md5' });
   b.require('diff2html', { expose: 'diff2html' });
@@ -64,8 +64,8 @@ const baseDir = path.join(__dirname, '..');
   b.require('@primer/octicons', { expose: 'octicons' });
   b.require('signals', { expose: 'signals' });
   b.require('winston', { expose: 'winston' });
-  const ungitjsFile = path.join(baseDir, 'public/js/ungit.js');
-  const mapFile = path.join(baseDir, 'public/js/ungit.js.map');
+  const ungitjsFile = path.join(baseDir, 'public/js/fungit.js');
+  const mapFile = path.join(baseDir, 'public/js/fungit.js.map');
   await new Promise((resolve) => {
     const outFile = fsSync.createWriteStream(ungitjsFile);
     outFile.on('close', () => resolve());

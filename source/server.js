@@ -13,12 +13,12 @@ const fs = require('fs').promises;
 const signals = require('signals');
 const os = require('os');
 const cache = require('./utils/cache');
-const UngitPlugin = require('./ungit-plugin');
+const UngitPlugin = require('./fungit-plugin');
 const serveStatic = require('serve-static');
 
 process.on('uncaughtException', (err) => {
   logger.error(err.stack ? err.stack.toString() : err.toString());
-  bugtracker.notify(err, 'ungit-launcher');
+  bugtracker.notify(err, 'fungit-launcher');
   process.exit();
 });
 
@@ -82,7 +82,7 @@ if (config.allowedIPs) {
         .status(403)
         .send(
           '<h3>This host is not authorized to connect</h3>' +
-            '<p>You are trying to connect to an Ungit instance from an unauthorized host.</p>'
+            '<p>You are trying to connect to an fungit instance from an unauthorized host.</p>'
         );
       logger.warn(`Host trying but not authorized to connect: ${ip}`);
     }
@@ -105,7 +105,7 @@ if (config.autoShutdownTimeout) {
     if (autoShutdownTimeout) clearTimeout(autoShutdownTimeout);
     autoShutdownTimeout = setTimeout(() => {
       logger.info(
-        `Shutting down ungit due to inactivity. (autoShutdownTimeout is set to ${config.autoShutdownTimeout} ms`
+        `Shutting down fungit due to inactivity. (autoShutdownTimeout is set to ${config.autoShutdownTimeout} ms`
       );
       process.exit(0);
     }, config.autoShutdownTimeout);
@@ -131,7 +131,7 @@ if (config.authentication) {
       store: new MemoryStore({
         checkPeriod: 86400000, // prune expired entries every 24h
       }),
-      secret: 'ungit',
+      secret: 'fungit',
       resave: true,
       saveUninitialized: true,
     })
@@ -187,7 +187,7 @@ const indexHtmlCacheKey = cache.registerFunc(() => {
           return plugin.compile();
         })
       ).then((results) => {
-        data = data.replace('<!-- ungit-plugins-placeholder -->', results.join('\n\n'));
+        data = data.replace('<!-- fungit-plugins-placeholder -->', results.join('\n\n'));
         data = data.replace(/__ROOT_PATH__/g, config.rootPath);
 
         return data;
@@ -248,7 +248,7 @@ const loadPlugins = (plugins, pluginBasePath) => {
       pluginDirs.map((pluginDir) => {
         const pluginPath = path.join(pluginBasePath, pluginDir);
         return fs
-          .access(path.join(pluginPath, 'ungit-plugin.json'))
+          .access(path.join(pluginPath, 'fungit-plugin.json'))
           .then(() => {
             logger.info('Loading plugin: ' + pluginPath);
             const plugin = new UngitPlugin({
@@ -265,7 +265,7 @@ const loadPlugins = (plugins, pluginBasePath) => {
             logger.info('Plugin loaded: ' + pluginDir);
           })
           .catch(() => {
-            // Skip direcories that don't contain an "ungit-plugin.json".
+            // Skip direcories that don't contain an "fungit-plugin.json".
           });
       })
     );
@@ -287,11 +287,11 @@ const pluginsCacheKey = cache.registerFunc(() => {
 
 app.get('/serverdata.js', (req, res) => {
   const text =
-    `ungit.config = ${JSON.stringify(config)};\n` +
-    `ungit.userHash = "${sysinfo.getUserHash()}";\n` +
-    `ungit.version = "${config.ungitDevVersion}";\n` +
-    `ungit.platform = "${os.platform()}";\n` +
-    `ungit.pluginApiVersion = "${require('../package.json').ungitPluginApiVersion}";\n`;
+    `fungit.config = ${JSON.stringify(config)};\n` +
+    `fungit.userHash = "${sysinfo.getUserHash()}";\n` +
+    `fungit.version = "${config.ungitDevVersion}";\n` +
+    `fungit.platform = "${os.platform()}";\n` +
+    `fungit.pluginApiVersion = "${require('../package.json').ungitPluginApiVersion}";\n`;
   res.set('Content-Type', 'application/javascript');
   res.send(text);
 });
@@ -408,7 +408,7 @@ app.get('/api/fs/listDirectories', ensureAuthenticated, (req, res) => {
 
 // Error handling
 app.use((err, req, res, next) => {
-  bugtracker.notify(err, 'ungit-node');
+  bugtracker.notify(err, 'fungit-node');
   logger.error(err.stack);
   res.status(500).send({ error: err.message, errorType: err.name, stack: err.stack });
 });
@@ -417,6 +417,6 @@ exports.started = new signals.Signal();
 
 server.listen({ port: config.port, host: config.ungitBindIp }, () => {
   logger.info('Listening on port ' + config.port);
-  console.log('## Ungit started ##'); // Consumed by bin/ungit to figure out when the app is started
+  console.log('## fungit started ##'); // Consumed by bin/fungit to figure out when the app is started
   exports.started.dispatch();
 });

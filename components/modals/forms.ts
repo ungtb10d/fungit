@@ -1,13 +1,13 @@
 import * as ko from 'knockout';
 import { ModalViewModel, FormItems } from './modalBase';
-declare const ungit: any;
+declare const fungit: any;
 
-ungit.components.register(
+fungit.components.register(
   'credentialsmodal',
   (args: any) => new CredentialsModalViewModel(args.remote)
 );
-ungit.components.register('addremotemodal', (arg: any) => new AddRemoteModalViewModel(arg.path));
-ungit.components.register('addsubmodulemodal', (arg: any) => new AddSubmoduleModalViewModel(arg.path));
+fungit.components.register('addremotemodal', (arg: any) => new AddRemoteModalViewModel(arg.path));
+fungit.components.register('addsubmodulemodal', (arg: any) => new AddSubmoduleModalViewModel(arg.path));
 
 /**
  * Form receives collection of user inputs, i.e. username, password and etc.
@@ -37,7 +37,7 @@ class CredentialsModalViewModel extends FormModalViewModel {
 
   submit() {
     super.submit();
-    ungit.programEvents.dispatch({
+    fungit.programEvents.dispatch({
       event: 'request-credentials-response',
       username: this.items[0].value(),
       password: this.items[1].value(),
@@ -57,13 +57,13 @@ class AddRemoteModalViewModel extends FormModalViewModel {
   async submit() {
     super.submit();
     try {
-      await ungit.server.postPromise(`/remotes/${encodeURIComponent(this.items[0].value())}`, {
+      await fungit.server.postPromise(`/remotes/${encodeURIComponent(this.items[0].value())}`, {
         path: this.repoPath,
         url: this.items[1].value(),
       });
-      ungit.programEvents.dispatch({ event: 'update-remote' });
+      fungit.programEvents.dispatch({ event: 'update-remote' });
     } catch (e) {
-      ungit.server.unhandledRejection(e);
+      fungit.server.unhandledRejection(e);
     }
   }
 }
@@ -80,14 +80,14 @@ class AddSubmoduleModalViewModel extends FormModalViewModel {
   async submit() {
     super.submit();
     try {
-      await ungit.server.postPromise('/submodules/add', {
+      await fungit.server.postPromise('/submodules/add', {
         path: this.repoPath,
         submodulePath: this.items[0].value(),
         submoduleUrl: this.items[1].value(),
       });
-      ungit.programEvents.dispatch({ event: 'submodule-fetch' });
+      fungit.programEvents.dispatch({ event: 'submodule-fetch' });
     } catch (e) {
-      ungit.server.unhandledRejection(e);
+      fungit.server.unhandledRejection(e);
     }
   }
 }

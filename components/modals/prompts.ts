@@ -1,17 +1,17 @@
 import * as ko from 'knockout';
 import { ModalViewModel, PromptOptions } from './modalBase';
-declare const ungit: any;
+declare const fungit: any;
 
-ungit.components.register('yesnomodal', (args: any) => new YesNoModalViewModel(args.title, args.details, args.closeFunc));
-ungit.components.register(
+fungit.components.register('yesnomodal', (args: any) => new YesNoModalViewModel(args.title, args.details, args.closeFunc));
+fungit.components.register(
   'yesnomutemodal',
   (args: any) => new YesNoMuteModalViewModel(args.title, args.details, args.closeFunc)
 );
-ungit.components.register(
+fungit.components.register(
   'toomanyfilesmodal',
   (args: any) => new TooManyFilesModalViewModel(args.title, args.details, args.closeFunc)
 );
-ungit.components.register('texteditmodal', (args: any) => new TextEditModal(args.title, args.content, args.closeFunc));
+fungit.components.register('texteditmodal', (args: any) => new TextEditModal(args.title, args.content, args.closeFunc));
 
 
 /**

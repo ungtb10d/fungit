@@ -1,4 +1,4 @@
-declare var ungit: any;
+declare var fungit: any;
 
 export class ComponentRoot {
   _apiCache: string;
@@ -14,10 +14,10 @@ export class ComponentRoot {
     const jsonString = JSON.stringify(value);
 
     if (this._apiCache === jsonString) {
-      ungit.logger.debug(`ignoring redraw for same ${this.constructor.name} payload.`);
+      fungit.logger.debug(`ignoring redraw for same ${this.constructor.name} payload.`);
       return true;
     }
-    ungit.logger.debug(`redrawing ${this.constructor.name} payload.  \n${jsonString}`);
+    fungit.logger.debug(`redrawing ${this.constructor.name} payload.  \n${jsonString}`);
 
     this._apiCache = jsonString
     return false;

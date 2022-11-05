@@ -1,7 +1,7 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ungit-components');
-const programEvents = require('ungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 
 components.register('refreshbutton', (args) => new RefreshButton(args.isLarge));
 

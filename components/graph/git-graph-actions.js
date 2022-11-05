@@ -1,7 +1,7 @@
 const ko = require('knockout');
 const octicons = require('octicons');
-const components = require('ungit-components');
-const programEvents = require('ungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 const RefViewModel = require('./git-ref.js');
 const HoverActions = require('./hover-actions');
 
@@ -114,7 +114,7 @@ class Reset extends ActionBase {
     return new Promise((resolve, reject) => {
       components.showModal('yesnomodal', {
         title: 'Are you sure?',
-        details: 'Resetting to ref: ' + remoteRef.name + ' cannot be undone with ungit.',
+        details: 'Resetting to ref: ' + remoteRef.name + ' cannot be undone with fungit.',
         closeFunc: async (isYes) => {
           if (isYes) {
             await this.server
@@ -142,7 +142,7 @@ class Rebase extends ActionBase {
       if (this.isRunning()) return true;
       return (
         this.graph.currentActionContext() instanceof RefViewModel &&
-        (!ungit.config.showRebaseAndMergeOnlyOnRefs || this.node.refs().length > 0) &&
+        (!fungit.config.showRebaseAndMergeOnlyOnRefs || this.node.refs().length > 0) &&
         this.graph.currentActionContext().current() &&
         this.graph.currentActionContext().node() != this.node
       );
@@ -164,7 +164,7 @@ class Rebase extends ActionBase {
         if (err.errorCode != 'merge-failed') {
           this.server.unhandledRejection(err);
         } else {
-          ungit.logger.warn('rebase failed', err);
+          fungit.logger.warn('rebase failed', err);
         }
       });
   }
@@ -202,7 +202,7 @@ class Merge extends ActionBase {
         if (err.errorCode != 'merge-failed') {
           this.server.unhandledRejection(err);
         } else {
-          ungit.logger.warn('merge failed', err);
+          fungit.logger.warn('merge failed', err);
         }
       });
   }
@@ -260,7 +260,7 @@ class Checkout extends ActionBase {
           this.graph.currentActionContext().node() == this.node &&
           !this.graph.currentActionContext().current()
         );
-      return ungit.config.allowCheckoutNodes && this.graph.currentActionContext() == this.node;
+      return fungit.config.allowCheckoutNodes && this.graph.currentActionContext() == this.node;
     });
   }
 
@@ -289,7 +289,7 @@ class Delete extends ActionBase {
     if (context.isRemoteBranch) {
       details = `<code _style="font-size: 100%">REMOTE</code> ${details}`;
     }
-    details = `Deleting ${details} branch or tag cannot be undone with ungit.`;
+    details = `Deleting ${details} branch or tag cannot be undone with fungit.`;
 
     return new Promise((resolve, reject) => {
       components.showModal('yesnomodal', {
@@ -324,7 +324,7 @@ class CherryPick extends ActionBase {
         if (err.errorCode != 'merge-failed') {
           this.server.unhandledRejection(err);
         } else {
-          ungit.logger.warn('cherrypick failed', err);
+          fungit.logger.warn('cherrypick failed', err);
         }
       });
   }

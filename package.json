@@ -1,11 +1,11 @@
 {
-  "name": "ungit",
+  "name": "fungit",
   "author": "Fredrik Norén <fredrik.jw.noren@gmail.com>",
   "description": "Git made easy",
   "version": "1.5.22",
   "ungitPluginApiVersion": "0.2.0",
   "scripts": {
-    "start": "node ./bin/ungit",
+    "start": "node ./bin/fungit",
     "inspect": "node --inspect ./source/server.js",
     "test": "npm run unittest && npm run clicktest",
     "unittest": "mocha --config .mochatest.json",
@@ -21,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FredrikNoren/ungit.git"
+    "url": "https://github.com/ungtb10d/fungit.git"
   },
   "bin": {
-    "ungit": "./bin/ungit",
+    "fungit": "./bin/fungit",
     "0ungit-credentials-helper": "./bin/credentials-helper"
   },
   "dependencies": {

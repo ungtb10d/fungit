@@ -2,12 +2,12 @@ const ko = require('knockout');
 const _ = require('lodash');
 const moment = require('moment');
 const octicons = require('octicons');
-const components = require('ungit-components');
+const components = require('fungit-components');
 const GitNodeViewModel = require('./git-node');
 const GitRefViewModel = require('./git-ref');
 const EdgeViewModel = require('./edge');
 const { ComponentRoot } = require('../ComponentRoot');
-const numberOfNodesPerLoad = ungit.config.numberOfNodesPerLoad;
+const numberOfNodesPerLoad = fungit.config.numberOfNodesPerLoad;
 
 components.register('graph', (args) => new GraphViewModel(args.server, args.repoPath));
 
@@ -112,7 +112,7 @@ class GraphViewModel extends ComponentRoot {
 
   async _loadNodesFromApi() {
     this._isLoadNodesFromApiRunning = true;
-    ungit.logger.debug('graph.loadNodesFromApi() triggered');
+    fungit.logger.debug('graph.loadNodesFromApi() triggered');
     const nodeSize = this.nodes().length;
     const edges = [];
 
@@ -152,7 +152,7 @@ class GraphViewModel extends ComponentRoot {
         this.scrolledToEnd();
       }
       this._isLoadNodesFromApiRunning = false;
-      ungit.logger.debug('graph.loadNodesFromApi() finished');
+      fungit.logger.debug('graph.loadNodesFromApi() finished');
     }
   }
 
@@ -300,13 +300,13 @@ class GraphViewModel extends ComponentRoot {
     const checkout = await this.server.getPromise('/checkout', { path: this.repoPath() });
 
     try {
-      ungit.logger.debug('setting checkedOutBranch', checkout);
+      fungit.logger.debug('setting checkedOutBranch', checkout);
       this.checkedOutBranch(checkout);
     } catch (err) {
       if (err.errorCode != 'not-a-repository') {
         this.server.unhandledRejection(err);
       } else {
-        ungit.logger.warn('updateBranches failed', err);
+        fungit.logger.warn('updateBranches failed', err);
       }
     }
   }

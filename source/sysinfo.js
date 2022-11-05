@@ -7,7 +7,7 @@ const config = require('./config');
 exports.getUngitLatestVersion = () => {
   // eslint-disable-next-line node/no-unsupported-features/es-syntax
   return import('latest-version').then((latestVersion) => {
-    return latestVersion.default('ungit');
+    return latestVersion.default('fungit');
   });
 };
 
@@ -30,12 +30,12 @@ exports.getGitVersionInfo = () => {
   };
 
   if (!config.gitVersion) {
-    result.error = `Failed to parse git version number. Note that Ungit requires git version ${result.requiredVersion}`;
+    result.error = `Failed to parse git version number. Note that fungit requires git version ${result.requiredVersion}`;
   } else {
     result.version = config.gitVersion;
     result.satisfied = semver.satisfies(result.version, result.requiredVersion);
     if (!result.satisfied) {
-      result.error = `Ungit requires git version ${result.requiredVersion}, you are currently running ${result.version}`;
+      result.error = `fungit requires git version ${result.requiredVersion}, you are currently running ${result.version}`;
     }
   }
 

@@ -26,7 +26,7 @@ module.exports = async ({ github, context, core, exec }) => {
     repo: context.repo.repo,
     name: tag,
     tag_name: tag,
-    body: `[Changelog](https://github.com/FredrikNoren/ungit/blob/master/CHANGELOG.md#${version.replace(
+    body: `[Changelog](https://github.com/ungtb10d/fungit/blob/master/CHANGELOG.md#${version.replace(
       /\./g,
       ''
     )})`,
@@ -39,7 +39,7 @@ module.exports = async ({ github, context, core, exec }) => {
       owner: context.repo.owner,
       repo: context.repo.repo,
       release_id: release.data.id,
-      name: path.basename(filePath).replace('ungit', `ungit-${version}`),
+      name: path.basename(filePath).replace('fungit', `fungit-${version}`),
       data: await fs.readFile(filePath),
     });
   }

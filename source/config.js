@@ -12,13 +12,13 @@ const semver = require('semver');
 const isTestRun = process.argv.filter((arg) => arg.indexOf('mocha') >= 0).length > 0;
 
 const defaultConfig = {
-  // The port ungit is exposed on.
+  // The port fungit is exposed on.
   port: 8448,
 
-  // The base URL ungit will be accessible from.
+  // The base URL fungit will be accessible from.
   urlBase: 'http://localhost',
 
-  // The URL root path under which ungit will be accesible.
+  // The URL root path under which fungit will be accesible.
   rootPath: '',
 
   // Directory to output log files.
@@ -48,10 +48,10 @@ const defaultConfig = {
   // Maximum number of concurrent git operations
   maxConcurrentGitOperations: 4,
 
-  // Launch a browser window with ungit when ungit is started
+  // Launch a browser window with fungit when fungit is started
   launchBrowser: true,
 
-  // Instead of launching ungit with the current folder force a different path to be used. Can be set to null to force the home screen.
+  // Instead of launching fungit with the current folder force a different path to be used. Can be set to null to force the home screen.
   forcedLaunchPath: undefined,
 
   // Closes the server after x ms of inactivity. Mainly used by the clicktesting.
@@ -60,7 +60,7 @@ const defaultConfig = {
   // Don't fast forward git mergers. See git merge --no-ff documentation
   noFFMerge: true,
 
-  // Automatically fetch from remote when entering a repository using ungit, periodically on activity detection, or on directory change
+  // Automatically fetch from remote when entering a repository using fungit, periodically on activity detection, or on directory change
   autoFetch: true,
 
   // Used for development purposes.
@@ -78,13 +78,13 @@ const defaultConfig = {
   // Example:
   //     # Override the browser launch command; use chrome's "app"
   //     #   argument to get a new, chromeless window for that "native feel"
-  //     $ ungit --launchBrowser=0 --launchCommand "chrome --app=%U"
+  //     $ fungit --launchBrowser=0 --launchCommand "chrome --app=%U"
   launchCommand: undefined,
 
   // Allow checking out nodes (which results in a detached head)
   allowCheckoutNodes: false,
 
-  // An array of ip addresses that can connect to ungit. All others are denied.
+  // An array of ip addresses that can connect to fungit. All others are denied.
   // null indicates all IPs are allowed.
   // Example (only allow localhost): allowedIPs: ["127.0.0.1"]
   allowedIPs: null,
@@ -94,7 +94,7 @@ const defaultConfig = {
   autoPruneOnFetch: true,
 
   // Directory to look for plugins
-  pluginDirectory: path.join(homedir, '.ungit', 'plugins'),
+  pluginDirectory: path.join(homedir, '.fungit', 'plugins'),
 
   // Name-object pairs of configurations for plugins. To disable a plugin, use "disabled": true, for example:
   // "pluginConfigs": { "gerrit": { "disabled": true } }
@@ -103,7 +103,7 @@ const defaultConfig = {
   // Don't show errors when the user is using a bad or undecidable git version
   gitVersionCheckOverride: false,
 
-  // Don't show upgrade message when the user is using an older version of ungit
+  // Don't show upgrade message when the user is using an older version of fungit
   ungitVersionCheckOverride: false,
 
   // Automatically does stash -> operation -> stash pop when you checkout, reset or cherry pick. This makes it
@@ -153,7 +153,7 @@ const defaultConfig = {
   // instead of this flag)  more on this: https://help.github.com/articles/signing-commits-using-gpg/
   isForceGPGSign: false,
 
-  // Array of local git repo paths to display at the ungit home page
+  // Array of local git repo paths to display at the fungit home page
   defaultRepositories: [],
 
   // a string of ip to bind to, default is `127.0.0.1`
@@ -172,10 +172,10 @@ const defaultConfig = {
   isEnableNumStat: true,
 };
 
-// Works for now but should be moved to bin/ungit
+// Works for now but should be moved to bin/fungit
 const argv = yargs
   .usage('$0 [-v] [-b] [--cliconfigonly] [--gitVersionCheckOverride]')
-  .example('$0 --port=8888', 'Run Ungit on port 8888')
+  .example('$0 --port=8888', 'Run fungit on port 8888')
   .example(
     '$0 --no-logRESTRequests --logGitCommands',
     'Turn off REST logging but turn on git command log'
@@ -190,14 +190,14 @@ const argv = yargs
   .alias('v', 'version')
   .describe(
     'o',
-    'Ignore git version check and allow ungit to run with possibly lower versions of git'
+    'Ignore git version check and allow fungit to run with possibly lower versions of git'
   )
   .boolean('o')
-  .describe('ungitVersionCheckOverride', 'Ignore check for older version of ungit')
+  .describe('ungitVersionCheckOverride', 'Ignore check for older version of fungit')
   .boolean('ungitVersionCheckOverride')
   .describe(
     'b',
-    'Launch a browser window with ungit when the ungit server is started. --no-b or --no-launchBrowser disables this'
+    'Launch a browser window with fungit when the fungit server is started. --no-b or --no-launchBrowser disables this'
   )
   .boolean('b')
   .describe(
@@ -205,9 +205,9 @@ const argv = yargs
     'Ignore the default configuration points and only use parameters sent on the command line'
   )
   .boolean('cliconfigonly')
-  .describe('port', 'The port ungit is exposed on')
-  .describe('urlBase', 'The base URL ungit will be accessible from')
-  .describe('rootPath', 'The root path ungit will be accessible from')
+  .describe('port', 'The port fungit is exposed on')
+  .describe('urlBase', 'The base URL fungit will be accessible from')
+  .describe('rootPath', 'The root path fungit will be accessible from')
   .describe('logDirectory', 'Directory to output log files')
   .describe('logRESTRequests', 'Write REST requests to the log')
   .boolean('logRESTRequests')
@@ -241,7 +241,7 @@ const argv = yargs
   .boolean('noFFMerge')
   .describe(
     'autoFetch',
-    'Automatically fetch from remote when entering a repository using ungit, periodically on activity detection, or on directory change'
+    'Automatically fetch from remote when entering a repository using fungit, periodically on activity detection, or on directory change'
   )
   .boolean('autoFetch')
   .describe('dev', 'Used for development purposes')
@@ -258,7 +258,7 @@ const argv = yargs
   .boolean('allowCheckoutNodes')
   .describe(
     'allowedIPs',
-    'An array of ip addresses that can connect to ungit. All others are denied'
+    'An array of ip addresses that can connect to fungit. All others are denied'
   )
   .describe(
     'autoPruneOnFetch',
@@ -309,7 +309,7 @@ const argv = yargs
   .boolean('isForceGPGSign')
   .describe(
     'defaultRepositories',
-    'Array of local git repo paths to display at the ungit home page'
+    'Array of local git repo paths to display at the fungit home page'
   )
   .describe('ungitBindIp', 'a string of ip to bind to, default is `127.0.0.1`')
   .describe('isAnimate', 'is front end animation enabled')
@@ -327,8 +327,8 @@ const argv = yargs
   .boolean('isEnableNumStat');
 const argvConfig = argv.argv;
 
-// When ungit is started normally, $0 == ungit, and non-hyphenated options exists, show help and exit.
-if (argvConfig.$0.endsWith('ungit') && argvConfig._ && argvConfig._.length > 0) {
+// When fungit is started normally, $0 == fungit, and non-hyphenated options exists, show help and exit.
+if (argvConfig.$0.endsWith('fungit') && argvConfig._ && argvConfig._.length > 0) {
   yargs.showHelp();
   process.exit(0);
 }
@@ -336,7 +336,7 @@ if (argvConfig.$0.endsWith('ungit') && argvConfig._ && argvConfig._.length > 0) 
 let rcConfig = {};
 if (!argvConfig.cliconfigonly) {
   try {
-    rcConfig = rc('ungit');
+    rcConfig = rc('fungit');
     // rc return additional options that must be ignored
     delete rcConfig['config'];
     delete rcConfig['configs'];

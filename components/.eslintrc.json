@@ -6,6 +6,6 @@
     "node": false
   },
   "globals": {
-    "ungit": "readonly"
+    "fungit": "readonly"
   }
 }

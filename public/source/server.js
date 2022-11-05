@@ -1,8 +1,8 @@
-var programEvents = require('ungit-program-events');
+var programEvents = require('fungit-program-events');
 
-var rootPath = (ungit.config && ungit.config.rootPath) || '';
+var rootPath = (fungit.config && fungit.config.rootPath) || '';
 var nprogress;
-if (ungit.config.isDisableProgressBar) {
+if (fungit.config.isDisableProgressBar) {
   nprogress = {
     start: () => {},
     done: () => {},

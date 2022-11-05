@@ -225,7 +225,7 @@ describe('[BRANCHES]', () => {
   });
 
   it('Auto checkout on branch creation.', async () => {
-    await environment.page.evaluate(() => (ungit.config.autoCheckoutOnBranchCreate = true));
+    await environment.page.evaluate(() => (fungit.config.autoCheckoutOnBranchCreate = true));
     await environment.createBranch('autoCheckout');
     await environment.waitForElementVisible('[data-ta-name="autoCheckout"].current');
   });

@@ -7,8 +7,8 @@ require('./bootstrap');
 require('./jquery-ui');
 require('./knockout-bindings');
 const winston = require('winston');
-ungit.logger = winston.createLogger({
-  level: ungit.config.logLevel || 'error',
+fungit.logger = winston.createLogger({
+  level: fungit.config.logLevel || 'error',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.colorize(),
@@ -23,13 +23,13 @@ ungit.logger = winston.createLogger({
   ),
   transports: [new winston.transports.Console()],
 });
-var components = require('ungit-components');
+var components = require('fungit-components');
 var Server = require('./server');
-var programEvents = require('ungit-program-events');
-var navigation = require('ungit-navigation');
-var storage = require('ungit-storage');
+var programEvents = require('fungit-program-events');
+var navigation = require('fungit-navigation');
+var storage = require('fungit-storage');
 var adBlocker = require('just-detect-adblock');
-var { encodePath } = require('ungit-address-parser');
+var { encodePath } = require('fungit-address-parser');
 
 // Request animation frame polyfill and init tooltips
 (function () {
@@ -86,16 +86,16 @@ ko.bindingHandlers.autocomplete = {
     const handleKeyEvent = (event) => {
       const value = $(element).val();
       const lastChar = value.slice(-1);
-      if (lastChar == ungit.config.fileSeparator) {
+      if (lastChar == fungit.config.fileSeparator) {
         // When file separator is entered, list what is in given path, and rest auto complete options
         server
           .getPromise('/fs/listDirectories', { term: value })
           .then((directoryList) => {
             const currentDir = directoryList.shift();
             $(element).val(
-              currentDir.endsWith(ungit.config.fileSeparator)
+              currentDir.endsWith(fungit.config.fileSeparator)
                 ? currentDir
-                : currentDir + ungit.config.fileSeparator
+                : currentDir + fungit.config.fileSeparator
             );
             setAutoCompleteOptions(directoryList);
             $(element).autocomplete('search', value);
@@ -117,7 +117,7 @@ ko.bindingHandlers.autocomplete = {
         const folderNames = JSON.parse(storage.getItem('repositories')).map((value) => {
           return {
             value: value,
-            label: value.substring(value.lastIndexOf(ungit.config.fileSeparator) + 1),
+            label: value.substring(value.lastIndexOf(fungit.config.fileSeparator) + 1),
           };
         });
         setAutoCompleteOptions(folderNames);
@@ -131,7 +131,7 @@ ko.bindingHandlers.autocomplete = {
 };
 
 function WindowTitle() {
-  this.path = 'ungit';
+  this.path = 'fungit';
   this.crash = false;
 }
 WindowTitle.prototype.update = function () {
@@ -143,7 +143,7 @@ WindowTitle.prototype.update = function () {
     })
     .reverse()
     .join(' < ');
-  if (this.crash) title = ':( ungit crash ' + title;
+  if (this.crash) title = ':( fungit crash ' + title;
   document.title = title;
 };
 
@@ -164,13 +164,13 @@ var app, appContainer, server;
 exports.start = function () {
   server = new Server();
   appContainer = new AppContainerViewModel();
-  ungit.server = server;
+  fungit.server = server;
   app = components.create('app', { appContainer: appContainer, server: server });
-  ungit.__app = app;
+  fungit.__app = app;
   programEvents.add(async (event) => {
-    ungit.logger.info(`received event: ${event.event}`);
+    fungit.logger.info(`received event: ${event.event}`);
     if (event.event == 'disconnected' || event.event == 'git-crash-error') {
-      console.error(`ungit crash: ${event.event}`, event.error, event.stacktrace);
+      console.error(`fungit crash: ${event.event}`, event.error, event.stacktrace);
       const err =
         event.event == 'disconnected' && (await adBlocker.detectAnyAdblocker())
           ? 'adblocker'
@@ -186,7 +186,7 @@ exports.start = function () {
 
     app.onProgramEvent(event);
   });
-  if (ungit.config.authentication) {
+  if (fungit.config.authentication) {
     var authenticationScreen = components.create('login', { server: server });
     appContainer.content(authenticationScreen);
     authenticationScreen.loggedIn.add(function () {
@@ -214,7 +214,7 @@ exports.start = function () {
   // routing
   navigation.crossroads.addRoute('/', function () {
     app.content(components.create('home', { app: app }));
-    windowTitle.path = 'ungit';
+    windowTitle.path = 'fungit';
     windowTitle.update();
   });
 

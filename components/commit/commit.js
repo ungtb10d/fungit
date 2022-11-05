@@ -2,7 +2,7 @@ const ko = require('knockout');
 const md5 = require('blueimp-md5');
 const moment = require('moment');
 const octicons = require('octicons');
-const components = require('ungit-components');
+const components = require('fungit-components');
 
 components.register('commit', (args) => new CommitViewModel(args));
 

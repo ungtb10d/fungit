@@ -12,7 +12,7 @@ var { app, dialog, shell, BrowserWindow, Menu } = require('electron');
 
 process.on('uncaughtException', function (err) {
   console.error(err.stack.toString());
-  bugtracker.notify(err, 'ungit-launcher');
+  bugtracker.notify(err, 'fungit-launcher');
   app.quit();
 });
 
@@ -47,7 +47,7 @@ function launch(callback) {
 }
 
 function checkIfUngitIsRunning(callback) {
-  // Fastest way to find out if a port is used or not/i.e. if ungit is running
+  // Fastest way to find out if a port is used or not/i.e. if fungit is running
   var net = require('net');
   var server = net.createServer();
   server.on('error', function (e) {
@@ -108,7 +108,7 @@ var menuTemplate = [
       {
         label: 'Learn More',
         click: async () => {
-          await shell.openExternal('https://github.com/FredrikNoren/ungit');
+          await shell.openExternal('https://github.com/ungtb10d/fungit');
         },
       },
     ],
@@ -124,8 +124,8 @@ app.on('ready', function () {
     if (ungitRunning) {
       dialog.showMessageBoxSync({
         type: 'error',
-        title: 'Ungit',
-        message: 'Ungit instance is already running',
+        title: 'fungit',
+        message: 'fungit instance is already running',
       });
       app.quit();
     } else {

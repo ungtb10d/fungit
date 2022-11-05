@@ -1,11 +1,11 @@
 const ko = require('knockout');
 const _ = require('lodash');
 const octicons = require('octicons');
-const components = require('ungit-components');
-const programEvents = require('ungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 const filesToDisplayIncrmentBy = 50;
 const filesToDisplayLimit = filesToDisplayIncrmentBy;
-const mergeTool = ungit.config.mergeTool;
+const mergeTool = fungit.config.mergeTool;
 const { ComponentRoot } = require('../ComponentRoot');
 
 components.register(
@@ -136,7 +136,7 @@ class StagingViewModel extends ComponentRoot {
   }
 
   async _refreshContent() {
-    ungit.logger.debug('staging.refreshContent() triggered');
+    fungit.logger.debug('staging.refreshContent() triggered');
 
     try {
       const headPromise = this.server.getPromise('/head', { path: this.repoPath(), limit: 1 });
@@ -164,7 +164,7 @@ class StagingViewModel extends ComponentRoot {
         this.isDiagOpen = true;
         components.showModal('toomanyfilesmodal', {
           title: 'Too many unstaged files',
-          details: 'It is recommended to use command line as ungit may be too slow.',
+          details: 'It is recommended to use command line as fungit may be too slow.',
           closeFunc: (isYes) => {
             this.isDiagOpen = false;
             if (isYes) {
@@ -182,10 +182,10 @@ class StagingViewModel extends ComponentRoot {
       if (err.errorCode != 'must-be-in-working-tree' && err.errorCode != 'no-such-path') {
         this.server.unhandledRejection(err);
       } else {
-        ungit.logger.error('error during staging refresh: ', err);
+        fungit.logger.error('error during staging refresh: ', err);
       }
     } finally {
-      ungit.logger.debug('staging.refreshContent() finished');
+      fungit.logger.debug('staging.refreshContent() finished');
     }
   }
 
@@ -497,11 +497,11 @@ class FileViewModel {
 
   discardChanges() {
     const timeSinceLastMute = new Date().getTime() - this.staging.mutedTime;
-    const isMuteWarning = timeSinceLastMute < ungit.config.disableDiscardMuteTime;
-    ungit.logger.debug(
+    const isMuteWarning = timeSinceLastMute < fungit.config.disableDiscardMuteTime;
+    fungit.logger.debug(
       `discard time since mute: ${timeSinceLastMute}, isMuteWarning: ${isMuteWarning}`
     );
-    if (ungit.config.disableDiscardWarning || isMuteWarning) {
+    if (fungit.config.disableDiscardWarning || isMuteWarning) {
       this.server
         .postPromise('/discardchanges', { path: this.staging.repoPath(), file: this.name() })
         .catch((e) => this.server.unhandledRejection(e));

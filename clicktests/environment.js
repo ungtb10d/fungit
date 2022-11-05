@@ -50,18 +50,18 @@ class Environment {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (err) {
       logger.error(err);
-      throw new Error('Cannot confirm ungit start!!\n' + err);
+      throw new Error('Cannot confirm fungit start!!\n' + err);
     }
   }
 
   async startServer() {
     this.port = await portfinder.getPortPromise({ port: portrange });
     this.rootUrl = `http://127.0.0.1:${this.port}${this.config.rootPath}`;
-    logger.info(`Starting ungit server:${this.port} with ${this.config.serverStartupOptions}`);
+    logger.info(`Starting fungit server:${this.port} with ${this.config.serverStartupOptions}`);
 
     this.hasStarted = false;
     const options = [
-      'bin/ungit',
+      'bin/fungit',
       '--cliconfigonly',
       `--port=${this.port}`,
       `--rootPath=${this.config.rootPath}`,
@@ -83,16 +83,16 @@ class Environment {
         const stdoutStr = stdout.toString();
         console.log(prependLines('[server] ', stdoutStr));
 
-        if (stdoutStr.indexOf('Ungit server already running') >= 0) {
+        if (stdoutStr.indexOf('fungit server already running') >= 0) {
           logger.info('server-already-running');
         }
 
-        if (stdoutStr.indexOf('## Ungit started ##') >= 0) {
+        if (stdoutStr.indexOf('## fungit started ##') >= 0) {
           if (this.hasStarted) {
-            reject(new Error('Ungit started twice, probably crashed.'));
+            reject(new Error('fungit started twice, probably crashed.'));
           } else {
             this.hasStarted = true;
-            logger.info('Ungit server started.');
+            logger.info('fungit server started.');
             resolve();
           }
         }
@@ -106,7 +106,7 @@ class Environment {
           reject(new Error('EADDRINUSE'));
         }
       });
-      ungitServer.on('exit', () => logger.info('UNGIT SERVER EXITED'));
+      ungitServer.on('exit', () => logger.info('fungit SERVER EXITED'));
     });
   }
 
@@ -326,7 +326,7 @@ class Environment {
         const method = response.request().method();
 
         if (validateFunc(url, method)) {
-          this.page.evaluate(`ungit._${action}Response = true`);
+          this.page.evaluate(`fungit._${action}Response = true`);
         }
       });
       this[`_${action}ResponseWatcher`] = true;
@@ -334,8 +334,8 @@ class Environment {
     await this.clickOnNode(`.branch[data-ta-name="${ref}"][data-ta-local="${local}"]`);
     await this.click(`[data-ta-action="${action}"]:not([style*="display: none"]) .dropmask`);
     await this._verifyRefAction(action);
-    await this.page.waitForFunction(`ungit._${action}Response`, { polling: 250 });
-    await this.page.evaluate(`ungit._${action}Response = undefined`);
+    await this.page.waitForFunction(`fungit._${action}Response`, { polling: 250 });
+    await this.page.evaluate(`fungit._${action}Response = undefined`);
   }
 
   async pushRefAction(ref, local) {
@@ -381,7 +381,7 @@ class Environment {
         ) {
           return;
         }
-        this.page.evaluate('ungit._moveEventResponded = true');
+        this.page.evaluate('fungit._moveEventResponded = true');
       });
       this._isMoveResponseWatcherSet = true;
     }
@@ -389,8 +389,8 @@ class Environment {
       `[data-ta-node-title="${targetNodeCommitTitle}"] [data-ta-action="move"]:not([style*="display: none"]) .dropmask`
     );
     await this._verifyRefAction('move');
-    await this.page.waitForFunction('ungit._moveEventResponded', { polling: 250 });
-    await this.page.evaluate('ungit._moveEventResponded = undefined');
+    await this.page.waitForFunction('fungit._moveEventResponded', { polling: 250 });
+    await this.page.evaluate('fungit._moveEventResponded = undefined');
   }
 
   // Explicitly trigger two program events.
@@ -398,13 +398,13 @@ class Environment {
   // and etc.  This function is to help mimic those movements.
   triggerProgramEvents() {
     return this.page.evaluate((_) => {
-      const isActive = ungit.programEvents.active;
+      const isActive = fungit.programEvents.active;
       if (!isActive) {
-        ungit.programEvents.active = true;
+        fungit.programEvents.active = true;
       }
-      ungit.programEvents.dispatch({ event: 'working-tree-changed' });
+      fungit.programEvents.dispatch({ event: 'working-tree-changed' });
       if (!isActive) {
-        ungit.programEvents.active = false;
+        fungit.programEvents.active = false;
       }
     });
   }
@@ -414,16 +414,16 @@ class Environment {
     if (!this._gitlogResposneWatcher) {
       this.page.on('response', async (response) => {
         if (response.url().indexOf('/gitlog') > 0 && response.request().method() === 'GET') {
-          this.page.evaluate('ungit._gitlogResponse = true');
+          this.page.evaluate('fungit._gitlogResponse = true');
         }
       });
       this._gitlogResposneWatcher = true;
     }
-    await this.page.evaluate('ungit._gitlogResponse = undefined');
+    await this.page.evaluate('fungit._gitlogResponse = undefined');
     await this.triggerProgramEvents();
-    await this.page.waitForFunction('ungit._gitlogResponse', { polling: 250 });
+    await this.page.waitForFunction('fungit._gitlogResponse', { polling: 250 });
     await this.page.waitForFunction(
-      'ungit.__app.content().repository().graph._isLoadNodesFromApiRunning === false',
+      'fungit.__app.content().repository().graph._isLoadNodesFromApiRunning === false',
       { polling: 250 }
     );
     logger.debug('ensureRedraw finished');
@@ -439,7 +439,7 @@ class Environment {
     await this.awaitAndClick(nodeSelector);
     await this.page.waitForFunction(
       () => {
-        const app = ungit.__app;
+        const app = fungit.__app;
         if (!app) {
           return;
         }
@@ -465,7 +465,7 @@ class Environment {
   // If an api call matches `apiPart` and `method` is called, set the `globalVarName`
   // to true. Use for detect if an API call was made and responded.
   setApiListener(apiPart, method, bodyMatcher = () => true) {
-    const randomVariable = `ungit._${Math.floor(Math.random() * 500000)}`;
+    const randomVariable = `fungit._${Math.floor(Math.random() * 500000)}`;
     this.page.on(
       'response',
       async (response) => {

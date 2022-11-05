@@ -1,6 +1,6 @@
 const ko = require('knockout');
-const components = require('ungit-components');
-const storage = require('ungit-storage');
+const components = require('fungit-components');
+const storage = require('fungit-storage');
 const $ = require('jquery');
 
 components.register('app', (args) => {
@@ -25,8 +25,8 @@ class AppViewModel {
     this.latestVersion = ko.observable();
     this.showNewVersionAvailable = ko.observable();
     this.newVersionInstallCommand =
-      (ungit.platform == 'win32' ? '' : 'sudo -H ') + 'npm update -g ungit';
-    this.bugtrackingEnabled = ko.observable(ungit.config.bugtracking);
+      (fungit.platform == 'win32' ? '' : 'sudo -H ') + 'npm update -g fungit';
+    this.bugtrackingEnabled = ko.observable(fungit.config.bugtracking);
     this.bugtrackingNagscreenDismissed = ko.observable(
       storage.getItem('bugtrackingNagscreenDismissed')
     );
@@ -37,7 +37,7 @@ class AppViewModel {
     this.gitVersionError = ko.observable();
     this.gitVersionErrorVisible = ko.computed(() => {
       return (
-        !ungit.config.gitVersionCheckOverride &&
+        !fungit.config.gitVersionCheckOverride &&
         this.gitVersionError() &&
         !this.gitVersionErrorDismissed()
       );
@@ -48,7 +48,7 @@ class AppViewModel {
       storage.getItem('repositories') || storage.getItem('visitedRepositories') || '[]'
     );
     const newRepos = localStorageRepo
-      .concat(ungit.config.defaultRepositories || [])
+      .concat(fungit.config.defaultRepositories || [])
       .filter((v, i, a) => a.indexOf(v) === i)
       .sort();
     storage.setItem('repositories', JSON.stringify(newRepos));
@@ -58,12 +58,12 @@ class AppViewModel {
     ko.renderTemplate('app', this, {}, parentElement);
   }
   shown() {
-    // The ungit.config constiable collections configuration from all different paths and only updates when
-    // ungit is restarted
-    if (!ungit.config.bugtracking) {
+    // The fungit.config constiable collections configuration from all different paths and only updates when
+    // fungit is restarted
+    if (!fungit.config.bugtracking) {
       // Whereas the userconfig only reflects what's in the ~/.ungitrc and updates directly,
       // but is only used for changing around the configuration. We need to check this here
-      // since ungit may have crashed without the server crashing since we enabled bugtracking,
+      // since fungit may have crashed without the server crashing since we enabled bugtracking,
       // and we don't want to show the nagscreen twice in that case.
       this.server
         .getPromise('/userconfig')
@@ -77,7 +77,7 @@ class AppViewModel {
         if (!version) return;
         this.currentVersion(version.currentVersion);
         this.latestVersion(version.latestVersion);
-        this.showNewVersionAvailable(!ungit.config.ungitVersionCheckOverride && version.outdated);
+        this.showNewVersionAvailable(!fungit.config.ungitVersionCheckOverride && version.outdated);
       })
       .catch((e) => this.server.unhandledRejection(e));
     this.server

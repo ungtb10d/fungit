@@ -11,7 +11,7 @@ const { encodePath } = require('../source/address-parser');
 
 const BugTracker = require('../source/bugtracker');
 const bugtracker = new BugTracker('launcher');
-// Fastest way to find out if a port is used or not/i.e. if ungit is running
+// Fastest way to find out if a port is used or not/i.e. if fungit is running
 const net = require('net');
 const server = net.createServer();
 const cleanExit = () => process.exit();
@@ -21,7 +21,7 @@ process.on('SIGTERM', cleanExit); // catch kill
 process.on('uncaughtException', (err) => {
   console.error(err.stack.toString());
 
-  bugtracker.notify(err, 'ungit-launcher');
+  bugtracker.notify(err, 'fungit-launcher');
   cleanExit();
 });
 
@@ -65,11 +65,11 @@ const launch = () => {
   );
 
   child.on('exit', (res) => {
-    console.log('Stopped keeping ungit alive');
+    console.log('Stopped keeping fungit alive');
   });
 
   const startupListener = (data) => {
-    if (data.toString().indexOf('## Ungit started ##') >= 0) {
+    if (data.toString().indexOf('## fungit started ##') >= 0) {
       child.removeListener('stdout', startupListener);
       child.stdout.on('data', (data) => console.log(data.toString().trim()));
       const launchTime = Date.now() - startLaunchTime;
@@ -88,7 +88,7 @@ server.listen({ port: config.port, host: config.ungitBindIp }, (err) => {
 });
 server.on('error', (e) => {
   if (e.code == 'EADDRINUSE') {
-    console.log('Ungit server already running');
+    console.log('fungit server already running');
     navigate();
   } else {
     console.error('Failed to run server: ', e);

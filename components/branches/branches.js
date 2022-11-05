@@ -1,8 +1,8 @@
 const ko = require('knockout');
 const _ = require('lodash');
 const octicons = require('octicons');
-const components = require('ungit-components');
-const storage = require('ungit-storage');
+const components = require('fungit-components');
+const storage = require('fungit-storage');
 const showRemote = 'showRemote';
 const showBranch = 'showBranch';
 const showTag = 'showTag';
@@ -29,7 +29,7 @@ class BranchesViewModel extends ComponentRoot {
       this.updateRefs();
       return value;
     };
-    this.shouldAutoFetch = ungit.config.autoFetch;
+    this.shouldAutoFetch = fungit.config.autoFetch;
     this.isShowRemote.subscribe(() => {
       this.clearApiCache();
       setLocalStorageAndUpdate(showRemote);
@@ -84,7 +84,7 @@ class BranchesViewModel extends ComponentRoot {
       });
     } catch (e) {
       this.current('~error');
-      ungit.logger.warn('error while setting current branch', e);
+      fungit.logger.warn('error while setting current branch', e);
     }
 
     try {
@@ -133,7 +133,7 @@ class BranchesViewModel extends ComponentRoot {
         }
       });
     } catch (e) {
-      ungit.logger.error('error during branch update: ', e);
+      fungit.logger.error('error during branch update: ', e);
     }
   }
 
@@ -144,7 +144,7 @@ class BranchesViewModel extends ComponentRoot {
     }
     components.showModal('yesnomodal', {
       title: 'Are you sure?',
-      details: 'Deleting ' + details + ' branch cannot be undone with ungit.',
+      details: 'Deleting ' + details + ' branch cannot be undone with fungit.',
       closeFunc: (isYes) => {
         if (!isYes) return;
         return branch.remove();

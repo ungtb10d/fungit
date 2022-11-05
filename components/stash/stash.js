@@ -2,8 +2,8 @@ const ko = require('knockout');
 const _ = require('lodash');
 const octicons = require('octicons');
 const moment = require('moment');
-const components = require('ungit-components');
-const storage = require('ungit-storage');
+const components = require('fungit-components');
+const storage = require('fungit-storage');
 const { ComponentRoot } = require('../ComponentRoot');
 
 components.register('stash', (args) => new StashViewModel(args.server, args.repoPath));
@@ -80,7 +80,7 @@ class StashViewModel extends ComponentRoot {
   }
 
   async _refresh() {
-    ungit.logger.debug('stash.refresh() triggered');
+    fungit.logger.debug('stash.refresh() triggered');
 
     try {
       const stashes = await this.server.getPromise('/stashes', { path: this.repoPath() });
@@ -102,10 +102,10 @@ class StashViewModel extends ComponentRoot {
       if (err.errorCode != 'no-such-path') {
         this.server.unhandledRejection(err);
       } else {
-        ungit.logger.warn('refresh failed: ', err);
+        fungit.logger.warn('refresh failed: ', err);
       }
     } finally {
-      ungit.logger.debug('stash.refresh() finished');
+      fungit.logger.debug('stash.refresh() finished');
     }
   }
 

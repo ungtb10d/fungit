@@ -1,12 +1,12 @@
 const $ = require('jquery');
 const ko = require('knockout');
-const components = require('ungit-components');
-const programEvents = require('ungit-program-events');
+const components = require('fungit-components');
+const programEvents = require('fungit-program-events');
 const Animateable = require('./animateable');
 const GraphActions = require('./git-graph-actions');
 
-const maxBranchesToDisplay = parseInt((ungit.config.numRefsToShow / 5) * 3); // 3/5 of refs to show to branches
-const maxTagsToDisplay = ungit.config.numRefsToShow - maxBranchesToDisplay; // 2/5 of refs to show to tags
+const maxBranchesToDisplay = parseInt((fungit.config.numRefsToShow / 5) * 3); // 3/5 of refs to show to branches
+const maxTagsToDisplay = fungit.config.numRefsToShow - maxBranchesToDisplay; // 2/5 of refs to show to tags
 
 class GitNodeViewModel extends Animateable {
   constructor(graph, sha1) {
@@ -54,11 +54,11 @@ class GitNodeViewModel extends Animateable {
         this.branchesToDisplay(
           this.branches.slice(
             0,
-            ungit.config.numRefsToShow - Math.min(this.tags().length, maxTagsToDisplay)
+            fungit.config.numRefsToShow - Math.min(this.tags().length, maxTagsToDisplay)
           )
         );
         this.tagsToDisplay(
-          this.tags.slice(0, ungit.config.numRefsToShow - this.branchesToDisplay().length)
+          this.tags.slice(0, fungit.config.numRefsToShow - this.branchesToDisplay().length)
         );
       } else {
         this.branches.removeAll();
@@ -82,7 +82,7 @@ class GitNodeViewModel extends Animateable {
     });
     this.showNewRefAction = ko.computed(() => !graph.currentActionContext());
     this.showRefSearch = ko.computed(
-      () => this.branches().length + this.tags().length > ungit.config.numRefsToShow
+      () => this.branches().length + this.tags().length > fungit.config.numRefsToShow
     );
     this.newBranchName = ko.observable();
     this.newBranchNameHasFocus = ko.observable(true);
@@ -219,7 +219,7 @@ class GitNodeViewModel extends Animateable {
       })
       .then(() => {
         this.graph.getRef(`refs/heads/${this.newBranchName()}`).node(this);
-        if (ungit.config.autoCheckoutOnBranchCreate) {
+        if (fungit.config.autoCheckoutOnBranchCreate) {
           return this.graph.server.postPromise('/checkout', {
             path: this.graph.repoPath(),
             name: this.newBranchName(),

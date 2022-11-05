@@ -9,7 +9,7 @@
     "io": "readonly",
     "jQuery": "writable",
     "Raven": "readonly",
-    "ungit": "readonly"
+    "fungit": "readonly"
   },
   "rules": {
     "no-prototype-builtins": "off"

@@ -10,7 +10,7 @@ on:
 
 jobs:
   bump:
-    if: github.repository == 'FredrikNoren/ungit'
+    if: github.repository == 'ungtb10d/fungit'
     runs-on: ubuntu-latest
 
     steps:
